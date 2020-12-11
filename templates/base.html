@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>News About Europe - {% block title %}{% endblock %}</title>
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <script src="{{ url_for('static', filename='jquery/jquery-3.5.1.min.js') }}" ></script>
-        <script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js') }}" ></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+        {% block head %}
+            <meta charset="UTF-8">
+            <title>News About Europe - {% block title %}{% endblock %}</title>
+
+            <!--Favicon-->
+            <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+            
+            <!--Import jquery and Bootstrap-->
+            <script src="{{ url_for('static', filename='jquery/jquery-3.5.1.min.js') }}" ></script>
+            <script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js') }}" ></script>
+            <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+            
+            <!--CSS file-->
+            <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+        {% endblock %}
+            <!--JavaScript files-->
+            <script src="{{url_for('static', filename='js/menu_handler.js')}}" defer></script>
+            <script src="{{url_for('static', filename='js/main.js')}}" defer></script>
     </head>
     <body>
+
         <!--navigation bar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">News About Europe</a>
@@ -18,17 +30,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a class="nav-link" href="{{ url_for('main_page') }}">Map</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main_page') }}">Map</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('main_page') }}">Usage</a></li>
                 </ul>
             </div>
         </nav>
+
         <!--Here comes HTML fragments-->
         <section class="content">
             {% block content %}{% endblock %}
         </section>
+
+        <!--Footer-->
         <div id="footer">
-            <p>Powered by <a target="_blank" href="https://newsapi.org">News API</a> and <a target="_blank" href="https://cssmapsplugin.com">CSSMap</a>.</p>
+            <!--Scroller area-->
+            <!--INFO: https://codepen.io/jonathan/pen/vDhKE-->
+            <!--INFO: https://www.html.am/html-codes/marquees/css-scrolling-text.cfm-->
+            <!--INFO: https://stackoverflow.com/questions/20052672/pause-a-webkit-animation-on-hover-->
+            <!--INFO: https://stackoverflow.com/questions/45847392/pure-css-continuous-horizontal-text-scroll-without-break-->
+            
+            <div class="scroll-left">
+                <p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+            </div>
+
+            <!--Links-->
+            <p id="links">Powered by <a target="_blank" href="https://newsapi.org">News API</a> and <a target="_blank" href="https://cssmapsplugin.com">CSSMap</a>.</p>
         </div>
     </body>
 </html>
