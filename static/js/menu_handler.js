@@ -2,7 +2,7 @@ var app = app || {};
 
 app.menu_handling = {
 
-    add_active_class_to_first_menu: function () {
+    set_first_menu_to_active: function () {
         var menu_section = document.getElementById("navbarSupportedContent");
         var menus = menu_section.getElementsByClassName("nav-item");
         menus.item(0).className += " active";
@@ -29,5 +29,11 @@ app.menu_handling = {
                 this.className += " active";
             });
         };
+    },
+
+    set_reuters_radio_to_checked: function () {
+        var radio_section = document.getElementById("news-agency-selector-area");
+        var news_agencies = radio_section.getElementsByClassName("form-check-input");
+        news_agencies.item(4).checked = true;
     }
 }

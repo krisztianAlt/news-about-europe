@@ -45,6 +45,11 @@ body {
     color: rgba(255,255,1,.7);
 }
 
+#news-agency-selector-area {
+    display: flex;
+    justify-content: center;
+}
+
 #footer {
     position: fixed;
     bottom: 0;

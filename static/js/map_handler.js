@@ -36,7 +36,7 @@ app.map_handling = {
                 } else if (success && articles.length==0) {
                     $('#messageModal').modal('toggle');
                     var modalTitle = document.getElementById("messageModalLabel");
-                    modalTitle.textContent = "There aren't articles about " + countryName.charAt(0).toUpperCase() + countryName.substr(1) + ".";
+                    modalTitle.textContent = "There aren't articles about " + countryName.charAt(0).toUpperCase() + countryName.substr(1) + ". Please, try to choose another country or news agency.";
                 } else {
                     $('#messageModal').modal('toggle');
                     var modalTitle = document.getElementById("messageModalLabel");
