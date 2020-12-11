@@ -1,24 +1,121 @@
 {% extends 'base.html' %}
 
+{% block head %}
+    {{ super() }}
+    
+    <!-- CSSMap STYLESHEET - EUROPE -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/cssmap-europe.css') }}" media="screen">
+
+    <!-- CSSMap SCRIPT -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/cssmap.min.js') }}" defer="defer"></script>
+
+    <script src="{{url_for('static', filename='js/map_handler.js')}}" defer="defer"></script>
+{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Map{% endblock %}</h1>
+    <h1>{% block title %}Map{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-   <div class="jumbotron">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-            </p>
+
+   <!--CSSMap - Europe-->
+        <div id="map-europe">
+            <ul class="europe">
+                <li class="eu1"><a href="#albania" rel="nofollow">Albania</a></li>
+                <li class="eu2"><a href="#andorra" rel="nofollow">Andorra</a></li>
+                <li class="eu3"><a href="#austria" rel="nofollow">Austria</a></li>
+                <li class="eu4"><a href="#belarus" rel="nofollow">Belarus</a></li>
+                <li class="eu5"><a href="#belgium" rel="nofollow">Belgium</a></li>
+                <li class="eu6"><a href="#bosnia-and-herzegovina" rel="nofollow">Bosnia and Herzegovina</a></li>
+                <li class="eu7"><a href="#bulgaria" rel="nofollow">Bulgaria</a></li>
+                <li class="eu8"><a href="#croatia" rel="nofollow">Croatia</a></li>
+                <li class="eu9"><a href="#cyprus" rel="nofollow">Cyprus</a></li>
+                <li class="eu10"><a href="#czech-republic" rel="nofollow">Czech Republic</a></li>
+                <li class="eu11"><a href="#denmark" rel="nofollow">Denmark</a></li>
+                <li class="eu12"><a href="#estonia" rel="nofollow">Estonia</a></li>
+                <li class="eu13"><a href="#france" rel="nofollow">France</a></li>
+                <li class="eu14"><a href="#finland" rel="nofollow">Finland</a></li>
+                <li class="eu15"><a href="#georgia" rel="nofollow">Georgia</a></li>
+                <li class="eu16"><a href="#germany" rel="nofollow">Germany</a></li>
+                <li class="eu17"><a href="#greece" rel="nofollow">Greece</a></li>
+                <li class="eu18"><a href="#hungary" rel="nofollow">Hungary</a></li>
+                <li class="eu19"><a href="#iceland" rel="nofollow">Iceland</a></li>
+                <li class="eu20"><a href="#ireland" rel="nofollow">Ireland</a></li>
+                <li class="eu21"><a href="#san-marino" rel="nofollow">San Marino</a></li>
+                <li class="eu22"><a href="#italy" rel="nofollow">Italy</a></li>
+                <li class="eu23"><a href="#kosovo" rel="nofollow">Kosovo</a></li>
+                <li class="eu24"><a href="#latvia" rel="nofollow">Latvia</a></li>
+                <li class="eu25"><a href="#liechtenstein" rel="nofollow">Liechtenstein</a></li>
+                <li class="eu26"><a href="#lithuania" rel="nofollow">Lithuania</a></li>
+                <li class="eu27"><a href="#luxembourg" rel="nofollow">Luxembourg</a></li>
+                <li class="eu28"><a href="#macedonia" rel="nofollow">Macedonia <abbr title="The Former Yugoslav Republic of Macedonia">(F.Y.R.O.M.)</abbr></a></li>
+                <li class="eu29"><a href="#malta" rel="nofollow">Malta</a></li>
+                <li class="eu30"><a href="#moldova" rel="nofollow">Moldova</a></li>
+                <li class="eu31"><a href="#monaco" rel="nofollow">Monaco</a></li>
+                <li class="eu32"><a href="#montenegro" rel="nofollow">Montenegro</a></li>
+                <li class="eu33"><a href="#netherlands" rel="nofollow">Netherlands</a></li>
+                <li class="eu34"><a href="#norway" rel="nofollow">Norway</a></li>
+                <li class="eu35"><a href="#poland" rel="nofollow">Poland</a></li>
+                <li class="eu36"><a href="#portugal" rel="nofollow">Portugal</a></li>
+                <li class="eu37"><a href="#romania" rel="nofollow">Romania</a></li>
+                <li class="eu38"><a href="#russian-federation" rel="nofollow">Russian Federation</a></li>
+                <li class="eu39"><a href="#serbia" rel="nofollow">Serbia</a></li>
+                <li class="eu40"><a href="#slovakia" rel="nofollow">Slovakia</a></li>
+                <li class="eu41"><a href="#slovenia" rel="nofollow">Slovenia</a></li>
+                <li class="eu42"><a href="#spain" rel="nofollow">Spain</a></li>
+                <li class="eu43"><a href="#sweden" rel="nofollow">Sweden</a></li>
+                <li class="eu44"><a href="#switzerland" rel="nofollow">Switzerland</a></li>
+                <li class="eu45"><a href="#turkey" rel="nofollow">Turkey</a></li>
+                <li class="eu46"><a href="#ukraine" rel="nofollow">Ukraine</a></li>
+                <li class="eu47"><a href="#united-kingdom" rel="nofollow">United Kingdom</a></li>
+            </ul>
         </div>
-        <div>
-            <p id="greeting">HELLO WORLD</p>
-            <p id='testpar'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nulla risus, hendrerit eget luctus sed, pellentesque a lorem. Donec tristique tempus nisi nec hendrerit. Duis aliquam enim metus, aliquam finibus ipsum viverra at. Nam commodo hendrerit libero, et mattis felis vehicula vel. Pellentesque vehicula elit ut orci viverra malesuada. Vivamus quis nisl magna. Phasellus malesuada tempus lacus. In pulvinar blandit purus, eget sagittis enim dignissim non. Suspendisse erat arcu, porta vel sem non, interdum porttitor arcu. Etiam volutpat lacinia risus, nec sollicitudin mauris. Morbi lorem augue, convallis ut tempor sed, consectetur id erat. Suspendisse at malesuada purus. Donec dui lacus, pulvinar sed sem et, tempus consequat arcu. Proin vitae aliquet elit.</p>
-            <p>Quisque semper nibh nec volutpat placerat. Donec laoreet massa in dolor mattis, id efficitur mi consectetur. Praesent tempor volutpat nibh, imperdiet faucibus neque commodo egestas. In molestie, lacus a venenatis pulvinar, turpis elit maximus quam, in sollicitudin diam lorem vel elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mi ligula, lacinia at metus vitae, sagittis aliquam diam. Nam a faucibus mauris.</p>
-            <p>Aliquam tellus odio, tempor pharetra leo nec, ultrices egestas diam. Quisque sed arcu eget urna accumsan ultricies. Morbi faucibus lacinia orci, eu luctus turpis maximus a. Nunc a elit at felis tincidunt congue. Vivamus non ultrices mauris. Cras ullamcorper, neque ornare semper semper, libero odio accumsan diam, id vulputate mi nibh eu magna. Proin eleifend aliquet efficitur. Proin ac eros volutpat purus pharetra blandit a vitae leo. Morbi rhoncus massa diam, vel blandit metus condimentum elementum. Fusce rhoncus finibus dolor vel pharetra. Etiam imperdiet pretium nisi vitae auctor. Donec congue lorem id orci sodales, eget lacinia justo accumsan. Vivamus dictum mollis nunc imperdiet vehicula. Praesent varius eros eget mauris consequat, non placerat metus laoreet.</p>
-            <p>Praesent non hendrerit metus. Nulla interdum gravida erat, a iaculis eros maximus id. Fusce eu magna turpis. Integer quis erat enim. Aliquam euismod ultricies sem non malesuada. Donec tempor risus condimentum bibendum placerat. Pellentesque ut lectus eget diam lacinia laoreet. Aenean sit amet risus eu risus interdum semper dictum ac lacus. Donec finibus massa ac tincidunt fermentum.</p>
+
+        <!--News modal-->
+        <div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="newsModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="newsModalLabel">Fresh news</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <table class="table-bordered table-hover table-condensed table-responsive" id="news-table" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Date</th>
+                                    <th>Image</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody id="news-table-body">
+                                <!--here come table rows from Javascript-->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="messageModalLabel">No news</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 {% endblock %}
