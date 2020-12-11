@@ -8,9 +8,8 @@ config.read('app.ini')
 api_key = config['newsapi.org']['api_key']
 
 
-def get_news_from_api(country_name):
+def get_news_from_api(country_name, news_agency):
     api_calling_succeeded = False
-    news_agency = 'reuters'
     url = 'https://newsapi.org/v2/everything?q="' + country_name + \
         '"&sources=' + news_agency + \
         '&sortBy=relevancy&apiKey=' + api_key
@@ -27,17 +26,9 @@ def get_news_from_api(country_name):
                 titles.add(article['title'].split(' - ')[0])
                 sorted_list_of_articles_without_duplicates.append(article)
 
-        # Check news list:
-        counter = 1
-        for article in sorted_list_of_articles_without_duplicates:
-            print(str(counter) + '.: ' + article['title'] + ' - ' + article['publishedAt'])
-            counter = counter + 1
-
         api_calling_succeeded = True
     except ValueError as value_err:
-        print('JSON decoding fails: ' + value_err)
+        print('JSON decoding fails: ' + str(value_err))
     except Exception as ex:
-        print('Error during request datas from News API: ' + ex)
+        print('Error during request datas from News API: ' + str(ex))
     return api_calling_succeeded, sorted_list_of_articles_without_duplicates
-
-

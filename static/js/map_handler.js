@@ -1,8 +1,8 @@
 var app = app || {};
 
-app.map_handling = {
+app.mapHandling = {
 
-    show_map: function () {
+    showMap: function () {
         // CSSMap;
         $("#map-europe").CSSMap({
             "size": 540,
@@ -14,13 +14,14 @@ app.map_handling = {
                     // text = e.children("A").eq(0).text(),
                     // countryCode = e.children("A").eq(0).attr("data-country-code");
                 var countryName = link.substr(1);
-                app.map_handling.get_data_from_api(countryName);
+                app.mapHandling.getDataFromApi(countryName);
             }
         });
     },
 
-    get_data_from_api: function (countryName) {
-        var dataPackage = {'country_name': countryName};
+    getDataFromApi: function (countryName) {
+        var selectedNewsAgency = app.mapHandling.getSelectedNewsAgency();
+        var dataPackage = {'country_name': countryName, 'selected_news_agency': selectedNewsAgency};
         $.ajax({
             url: 'get_articles',
             type: 'POST',
@@ -32,7 +33,7 @@ app.map_handling = {
                 var articles = response.article_datas;
                 if (success && articles.length!=0) {
                     $('#newsModal').modal('toggle');
-                    app.map_handling.list_news(articles, countryName);
+                    app.mapHandling.listNews(articles, countryName);
                 } else if (success && articles.length==0) {
                     $('#messageModal').modal('toggle');
                     var modalTitle = document.getElementById("messageModalLabel");
@@ -49,7 +50,7 @@ app.map_handling = {
         });
     },
 
-    list_news: function (news, countryName) {
+    listNews: function (news, countryName) {
         var modalTitle = document.getElementById("newsModalLabel");
         modalTitle.textContent = "News about " + countryName.charAt(0).toUpperCase() + countryName.substr(1);
 
@@ -114,6 +115,17 @@ app.map_handling = {
 
             newsTable.appendChild(newRow);
         }
+    },
+
+    getSelectedNewsAgency: function() {
+        var selectedNewsAgency = '';
+        var newsAgencyRadios = document.getElementsByClassName('form-check-input');
+        for (index = 0; index < newsAgencyRadios.length; index++) {
+            if (newsAgencyRadios[index].checked) {
+                selectedNewsAgency = newsAgencyRadios[index].value;
+            }
+        }
+        return selectedNewsAgency;
     }
 
 }

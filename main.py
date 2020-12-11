@@ -13,7 +13,8 @@ def main_page():
 @app.route('/get_articles', methods=['POST'])
 def get_articles_datas():
     country_name = request.get_json()['country_name']
-    api_calling_succeeded, articles = data_manager.get_news_from_api(country_name)
+    selected_news_agency = request.get_json()['selected_news_agency']
+    api_calling_succeeded, articles = data_manager.get_news_from_api(country_name, selected_news_agency)
     return jsonify(succeeded=api_calling_succeeded, article_datas=articles)
 
 @app.errorhandler(404)
