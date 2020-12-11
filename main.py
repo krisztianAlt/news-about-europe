@@ -1,42 +1,21 @@
-import configparser
-import requests
-from operator import itemgetter
-from flask import Flask, request
+import data_manager
+from flask import Flask, request, render_template, url_for
 
 
-def get_news_from_api():
-    config = configparser.ConfigParser()
-    config.read('app.ini')
-    api_key = config['newsapi.org']['api_key_1']
-    country_name = 'Hungary'
-    news_agency = 'reuters'
-    url = 'https://newsapi.org/v2/everything?q="' + country_name + \
-        '"&sources=' + news_agency + \
-        '&sortBy=relevancy&apiKey=' + api_key
-    try:
-        data_from_api = requests.get(url).json()
-        articles = data_from_api['articles']
-        sorted_list_of_articles = sorted(articles, key=itemgetter('publishedAt'), reverse=True)
-        sorted_list_of_articles_without_duplicates = []
+app = Flask(__name__)
+app.secret_key = data_manager.config['flask_secret_key']['SECRET_KEY']
+port_number = data_manager.config['port']['port_number']
 
-        # Delete recurring news from list
-        titles = set()
-        for article in sorted_list_of_articles:
-            if article['title'].split(' - ')[0] not in titles:
-                titles.add(article['title'].split(' - ')[0])
-                sorted_list_of_articles_without_duplicates.append(article)
-        
-        # Check news list
-        counter = 1
-        for article in sorted_list_of_articles_without_duplicates:
-            print(str(counter) + '.: ' + article['title'] + ' - ' + article['publishedAt'])
-            counter = counter + 1
+@app.route('/')
+def main_page():
+    return render_template('map.html')
 
-    except ValueError as value_err:
-        print('JSON decoding fails: ' + value_err)
-    except Exception as ex:
-        print('Error during call News API: ' + ex)
+@app.errorhandler(404)
+def page_not_found(e):
+    print("404 status code: " + str(e))
+    return render_template('404.html')
 
 
 if __name__ == '__main__':
-    get_news_from_api()
+    app.debug = True
+    app.run(port=port_number)
