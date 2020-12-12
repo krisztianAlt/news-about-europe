@@ -97,11 +97,6 @@ path:hover {
 #footer p {
     max-width: 100%;
     margin: auto;
-    height: 30px;
-}
-
-#links-div{
-    text-align: center;
 }
 
 #links {
@@ -140,7 +135,6 @@ path:hover {
 }
 
 .scroll-left {
-    height: 30px;	
     overflow: hidden;
     position: relative;
     background: #FF0;
@@ -151,10 +145,12 @@ path:hover {
 .scroller-element {
     float:left;
     background: #FF0;
+    height: 30px;
 }
 
 .scroller-element > p {
     padding: 1px 10px 0 10px;
+    white-space: nowrap;
 }
 
 #scrolling-text {
