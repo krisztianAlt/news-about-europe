@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% block head %}
+        
             <meta charset="UTF-8">
             <title>News About Europe - {% block title %}{% endblock %}</title>
 
@@ -15,10 +15,7 @@
             
             <!--CSS file-->
             <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
-        {% endblock %}
-            <!--JavaScript files-->
-            <script src="{{url_for('static', filename='js/menu_handler.js')}}" defer></script>
-            <script src="{{url_for('static', filename='js/main.js')}}" defer></script>
+        {% block head %}{% endblock %}
     </head>
     <body>
 
@@ -36,25 +33,21 @@
             </div>
         </nav>
 
-        <!--Here comes HTML fragments-->
+        <!--Map-->
         <section class="content">
             {% block content %}{% endblock %}
         </section>
 
         <!--Footer-->
         <div id="footer">
-            <!--Scroller area-->
-            <!--INFO: https://codepen.io/jonathan/pen/vDhKE-->
-            <!--INFO: https://www.html.am/html-codes/marquees/css-scrolling-text.cfm-->
-            <!--INFO: https://stackoverflow.com/questions/20052672/pause-a-webkit-animation-on-hover-->
-            <!--INFO: https://stackoverflow.com/questions/45847392/pure-css-continuous-horizontal-text-scroll-without-break-->
             
-            <div class="scroll-left">
-                <p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
-            </div>
+            <!--Scrolling text-->
+            {% block footer_scroller_content %}{% endblock %}
 
             <!--Links-->
-            <p id="links">Powered by <a target="_blank" href="https://newsapi.org">News API</a> and <a target="_blank" href="https://cssmapsplugin.com">CSSMap</a>.</p>
+            <div id="links-div">
+                <p id="links">Powered by <a target="_blank" href="https://newsapi.org">News API</a> and <a target="_blank" href="https://cssmapsplugin.com">CSSMap</a>.</p>
+            <div>
         </div>
     </body>
 </html>

@@ -33,7 +33,7 @@ app.mapHandling = {
                 var articles = response.article_datas;
                 if (success && articles.length!=0) {
                     $('#newsModal').modal('toggle');
-                    app.mapHandling.listNews(articles, countryName);
+                    app.mapHandling.listNews(articles, countryName, selectedNewsAgency);
                 } else if (success && articles.length==0) {
                     $('#messageModal').modal('toggle');
                     var modalTitle = document.getElementById("messageModalLabel");
@@ -50,9 +50,9 @@ app.mapHandling = {
         });
     },
 
-    listNews: function (news, countryName) {
+    listNews: function (news, countryName, newsAgency) {
         var modalTitle = document.getElementById("newsModalLabel");
-        modalTitle.textContent = "News about " + countryName.charAt(0).toUpperCase() + countryName.substr(1);
+        modalTitle.textContent = "News about " + countryName.charAt(0).toUpperCase() + countryName.substr(1) + " from " + app.scrollerHandling.convertNewsAgencyName(newsAgency);
 
         // delete previous news-table content in the modal:
         var deleteNewsRows = document.getElementsByClassName('news-table-row');
@@ -126,6 +126,16 @@ app.mapHandling = {
             }
         }
         return selectedNewsAgency;
+    },
+
+    listeningRadioButtons: function () {
+        var newsAgencyRadios = document.getElementsByClassName('form-check-input');
+        for (index = 0; index < newsAgencyRadios.length; index++) {
+            newsAgencyRadios[index].addEventListener('click', function (event) {
+                clickedAgency = this.value;
+                app.scrollerHandling.getHeadlinesFromServerByNewsAgency(clickedAgency);
+            })
+        }
     }
 
 }

@@ -17,6 +17,12 @@ def get_articles_datas():
     api_calling_succeeded, articles = data_manager.get_news_from_api(country_name, selected_news_agency)
     return jsonify(succeeded=api_calling_succeeded, article_datas=articles)
 
+@app.route('/get_top_headlines', methods=['POST'])
+def get_top_headlines_datas():
+    selected_news_agency = request.get_json()['selected_news_agency']
+    api_calling_succeeded, top_headlines = data_manager.get_top_headlines(selected_news_agency)
+    return jsonify(succeeded=api_calling_succeeded, top_headlines=top_headlines)
+
 @app.errorhandler(404)
 def page_not_found(e):
     print("404 status code: " + str(e))
