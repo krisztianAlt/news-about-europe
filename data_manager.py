@@ -32,3 +32,20 @@ def get_news_from_api(country_name, news_agency):
     except Exception as ex:
         print('Error during request datas from News API: ' + str(ex))
     return api_calling_succeeded, sorted_list_of_articles_without_duplicates
+
+def get_top_headlines(news_agency):
+    api_calling_succeeded = False
+    url = 'https://newsapi.org/v2/top-headlines?sources=' + news_agency + \
+        '&apiKey=' + api_key
+    top_headlines = []
+    try:
+        data_from_api = requests.get(url).json()
+        articles = data_from_api['articles']
+        for article in articles:
+            top_headlines.append(article['title'])
+        api_calling_succeeded = True
+    except ValueError as value_err:
+        print('JSON decoding fails: ' + str(value_err))
+    except Exception as ex:
+        print('Error during request datas from News API: ' + str(ex))
+    return api_calling_succeeded, top_headlines

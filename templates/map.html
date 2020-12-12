@@ -10,6 +10,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/cssmap.min.js') }}" defer="defer"></script>
 
     <script src="{{url_for('static', filename='js/map_handler.js')}}" defer="defer"></script>
+    <script src="{{url_for('static', filename='js/scroller.js')}}" defer></script>
 {% endblock %}
 
 {% block header %}
@@ -145,4 +146,17 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block footer_scroller_content %}
+    <div id="scroller">
+        <div class="scroller-element">
+            <p><span class="badge badge-primary" id="scroller-label">World news from</span></p>
+        </div>
+        <div class="scroll-left">
+            <div class="scroller-element">
+                <p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

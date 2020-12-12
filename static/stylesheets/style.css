@@ -61,7 +61,6 @@ body {
     right: 0;
     margin: 0 auto;
     background-color: #007bff;
-    text-align: center;
 }
 
 #footer p {
@@ -70,6 +69,10 @@ body {
     vertical-align: middle;
     height: 30px;
     white-space: nowrap;
+}
+
+#links-div{
+    text-align: center;
 }
 
 #links {
@@ -112,8 +115,18 @@ body {
     position: relative;
     background: #FF0;
     color:#007bff;
-    border: 1px solid orange;
+    border-left: 2px solid orange;
 }
+
+.scroller-element {
+    float:left;
+    background: #FF0;
+}
+
+.scroller-element > p {
+    padding: 1px 10px 0 10px;
+}
+
 .scroll-left p {
     position: absolute;
     width: 100%;
