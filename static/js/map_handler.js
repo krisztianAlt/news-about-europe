@@ -1,27 +1,77 @@
 var app = app || {};
 
+var countryIdsAndRawNames = {
+    "ad-4": "andorra",
+    "al-0": "albania",
+    "at-3": "austria",
+    "ba-1": "bosnia",
+    "be-2": "belgium",
+    "bg-3": "bulgaria",
+    "by-5": "belarus",
+    "ch-4": "switzerland",
+    "crimea_disputed-0": "crimea",
+    "cy-6": "cyprus",
+    "cz-1": "czech-republic",
+    "ee-8": "estonia",
+    "de-2": "germany",
+    "dk-9": "denmark",
+    "es-4": "spain",
+    "fi-5": "finland",
+    "fo-3": "faroe",
+    "fr-7": "france",
+    "gb-gbn-5": "united-kingdom",
+    "gr-7": "greece",
+    "hr-2": "croatia",
+    "hu-3": "hungary",
+    "ie-5": "ireland",
+    "is-4": "iceland",
+    "it-4": "italy",
+    "lt-3": "lithuania",
+    "lu-7": "luxembourg",
+    "lv-1": "latvia",
+    "mc-6": "monaco",
+    "me-2": "montenegro",
+    "md-1": "moldova",
+    "mk-5": "macedonia",
+    "mt-0": "malta",
+    "nl-3": "netherlands",
+    "no-6": "norway",
+    "pl-1": "poland",
+    "pt-0": "portugal",
+    "ro-1": "romania",
+    "rs-8": "serbia",
+    "ru-main-8": "russia",
+    "ru-kgd-6": "kaliningrad",
+    "se-7": "sweden",
+    "si-9": "slovenia",
+    "sk-2": "slovakia",
+    "sm-2": "san-marino",
+    "tr-7": "turkey",
+    "transnistria_proper-2": "transnistria",
+    "ua-2": "ukraine",
+    "xk-6": "kosovo"
+}
+
 app.mapHandling = {
 
-    showMap: function () {
-        // CSSMap;
-        $("#map-europe").CSSMap({
-            "size": 540,
-            "tooltips": "floating-top-center",
-            "responsive": "auto",
-            "cities": true,
-            onClick: function(e){
-                var link = e.children("A").eq(0).attr("href");
-                    // text = e.children("A").eq(0).text(),
-                    // countryCode = e.children("A").eq(0).attr("data-country-code");
-                var countryName = link.substr(1);
-                app.mapHandling.getDataFromApi(countryName);
-            }
-        });
+    activateCountriesOnMap: function () {
+        var countriesOnMap = document.getElementsByTagName('path');
+        for (index = 0; index < countriesOnMap.length; index++) {
+            countriesOnMap[index].addEventListener('click', function () {
+                var countryID = this.getAttribute("id");
+                console.log(countryID);
+                if (countryID in countryIdsAndRawNames) {
+                    var countryName = this.childNodes[0].textContent;
+                    console.log(countryName);
+                    app.mapHandling.getDataFromApi(countryIdsAndRawNames[countryID], countryName);
+                }    
+            })
+        };
     },
 
-    getDataFromApi: function (countryName) {
+    getDataFromApi: function (countryRawName, countryName) {
         var selectedNewsAgency = app.mapHandling.getSelectedNewsAgency();
-        var dataPackage = {'country_name': countryName, 'selected_news_agency': selectedNewsAgency};
+        var dataPackage = {'country_name': countryRawName, 'selected_news_agency': selectedNewsAgency};
         $.ajax({
             url: 'get_articles',
             type: 'POST',
@@ -37,7 +87,7 @@ app.mapHandling = {
                 } else if (success && articles.length==0) {
                     $('#messageModal').modal('toggle');
                     var modalTitle = document.getElementById("messageModalLabel");
-                    modalTitle.textContent = "There aren't articles about " + countryName.charAt(0).toUpperCase() + countryName.substr(1) + ". Please, try to choose another country or news agency.";
+                    modalTitle.textContent = "There aren't articles about " + countryName + ". Please, try to choose another country or news agency.";
                 } else {
                     $('#messageModal').modal('toggle');
                     var modalTitle = document.getElementById("messageModalLabel");
@@ -52,7 +102,7 @@ app.mapHandling = {
 
     listNews: function (news, countryName, newsAgency) {
         var modalTitle = document.getElementById("newsModalLabel");
-        modalTitle.textContent = "News about " + countryName.charAt(0).toUpperCase() + countryName.substr(1) + " from " + app.scrollerHandling.convertNewsAgencyName(newsAgency);
+        modalTitle.textContent = "News about " + countryName + " from " + app.scrollerHandling.convertNewsAgencyName(newsAgency);
 
         // delete previous news-table content in the modal:
         var deleteNewsRows = document.getElementsByClassName('news-table-row');

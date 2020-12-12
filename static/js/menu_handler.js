@@ -10,14 +10,6 @@ app.menuHandling = {
 
 
     setActiveMenuButtonColor: function () {
-
-        /*$('li').click(function(e) {   
-            e.preventDefault();
-            $('li').removeClass('active');
-            $(this).addClass('active');
-        });*/
-
-
         var menuSection = document.getElementById("navbarSupportedContent");
         var menus = menuSection.getElementsByClassName("nav-item");
         for (var index = 0; index < menus.length; index++) {

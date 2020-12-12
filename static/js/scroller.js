@@ -1,7 +1,7 @@
 var app = app || {};
 
-var step = 2;
-var speed = 40;
+var step = 3;
+var speed = 30;
 var headlinesInOneString = '';
 var actualScrollingUnitWithTimer;
 var newsAgencyChanged;
@@ -76,6 +76,14 @@ app.scrollerHandling = {
         var textWidth = document.getElementById('scrolling-text').offsetWidth;
         var xPosition = scrollingContainerWidth;
         newTextParagraph.style.left = xPosition+"px";            
+        
+        newTextParagraph.addEventListener('mouseenter', e => {
+            step = 0;
+        });
+
+        newTextParagraph.addEventListener('mouseleave', e => {
+            step = 2;
+        });
         
         // Scrolling:
         function scrolling () {
