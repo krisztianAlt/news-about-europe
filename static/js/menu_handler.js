@@ -22,7 +22,7 @@ app.menuHandling = {
         var menus = menuSection.getElementsByClassName("nav-item");
         for (var index = 0; index < menus.length; index++) {
             menus.item(index).addEventListener("click", function(event) {
-                event.preventDefault()
+                event.preventDefault();
                 var current = document.getElementsByClassName("active");
                 current[0].className = current[0].className.replace(" active", "");
                 this.className += " active";

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% block head %}
+        
             <meta charset="UTF-8">
             <title>News About Europe - {% block title %}{% endblock %}</title>
 
@@ -15,10 +15,7 @@
             
             <!--CSS file-->
             <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
-        {% endblock %}
-            <!--JavaScript files-->
-            <script src="{{url_for('static', filename='js/menu_handler.js')}}" defer></script>
-            <script src="{{url_for('static', filename='js/main.js')}}" defer></script>
+        {% block head %}{% endblock %}
     </head>
     <body>
 

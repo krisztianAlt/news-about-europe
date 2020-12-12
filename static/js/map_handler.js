@@ -133,7 +133,7 @@ app.mapHandling = {
         for (index = 0; index < newsAgencyRadios.length; index++) {
             newsAgencyRadios[index].addEventListener('click', function (event) {
                 clickedAgency = this.value;
-                app.scrollerHandling.refreshScroller(clickedAgency);
+                app.scrollerHandling.getHeadlinesFromServerByNewsAgency(clickedAgency);
             })
         }
     }

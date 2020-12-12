@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    {{ super() }}
+    
     
     <!-- CSSMap STYLESHEET - EUROPE -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cssmap-europe/cssmap-europe.css') }}" media="screen">
@@ -11,6 +11,8 @@
 
     <script src="{{url_for('static', filename='js/map_handler.js')}}" defer="defer"></script>
     <script src="{{url_for('static', filename='js/scroller.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/menu_handler.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/main.js')}}" defer></script>
 {% endblock %}
 
 {% block header %}
@@ -154,8 +156,8 @@
             <p><span class="badge badge-primary" id="scroller-label">World news from</span></p>
         </div>
         <div class="scroll-left">
-            <div class="scroller-element">
-                <p id="scrolling-text">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+            <div class="scroller-element" id="text-container-div">
+                <p id="scrolling-text">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem </p>
             </div>
         </div>
     </div>
