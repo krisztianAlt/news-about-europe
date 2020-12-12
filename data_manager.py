@@ -5,7 +5,7 @@ from operator import itemgetter
 
 config = configparser.ConfigParser()
 config.read('app.ini')
-api_key = config['newsapi.org']['api_key']
+api_key = config['newsapi.org']['api_key_1']
 
 
 def get_news_from_api(country_name, news_agency):

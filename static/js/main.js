@@ -4,7 +4,7 @@ app.init = function() {
     app.menuHandling.setFirstMenuToActive();
     app.menuHandling.setActiveMenuButtonColor();
     app.menuHandling.setReutersRadioToChecked();
-    app.mapHandling.showMap();
+    app.mapHandling.activateCountriesOnMap();
     app.scrollerHandling.startScroller();
 };
 
