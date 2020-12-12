@@ -4,7 +4,7 @@
     {{ super() }}
     
     <!-- CSSMap STYLESHEET - EUROPE -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/cssmap-europe.css') }}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cssmap-europe/cssmap-europe.css') }}" media="screen">
 
     <!-- CSSMap SCRIPT -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/cssmap.min.js') }}" defer="defer"></script>
@@ -155,7 +155,7 @@
         </div>
         <div class="scroll-left">
             <div class="scroller-element">
-                <p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+                <p id="scrolling-text">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
             </div>
         </div>
     </div>

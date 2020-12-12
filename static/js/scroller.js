@@ -4,13 +4,14 @@ app.scrollerHandling = {
 
     startScroller: function () {
         var label = document.getElementById('scroller-label');
-        label.textContent = ' World news from Reuters';
+        label.textContent = 'World news from Reuters';
         app.mapHandling.listeningRadioButtons();
+        app.scrollerHandling.refreshScroller('reuters');
     },
 
     refreshScroller: function (newsAgency) {
         var label = document.getElementById('scroller-label');
-        label.textContent = ' World news from ' + app.scrollerHandling.convertNewsAgencyName(newsAgency);
+        label.textContent = 'World news from ' + app.scrollerHandling.convertNewsAgencyName(newsAgency);
         
         // request data from Python server
         var dataPackage = {'selected_news_agency': newsAgency};
@@ -24,7 +25,10 @@ app.scrollerHandling = {
                 var success = response.succeeded;
                 var top_headlines = response.top_headlines;
                 if (success && top_headlines.length!=0) {
-                    
+                    $("#scrolling-text").fadeOut(500).promise().done(function(){
+                        document.getElementById("scrolling-text").innerHTML = top_headlines[0] + " ✦ " + top_headlines[1];
+                        $("#scrolling-text").fadeIn(500);
+                    });
                 } else if (success && top_headlines.length==0) {
                     
                 } else {
