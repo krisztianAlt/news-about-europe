@@ -28,6 +28,6 @@ app.menuHandling = {
     setReutersRadioToChecked: function () {
         var radioSection = document.getElementById("news-agency-selector-area");
         var newsAgencies = radioSection.getElementsByClassName("form-check-input");
-        newsAgencies.item(4).checked = true;
+        newsAgencies.item(3).checked = true;
     }
 }
