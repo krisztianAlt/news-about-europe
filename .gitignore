@@ -140,3 +140,4 @@ dmypy.json
 .history/
 
 app.ini
+create_news_about_europe_database.sql
