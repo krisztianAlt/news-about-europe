@@ -59,7 +59,7 @@ app.tutorial = {
         var windowMaxHeight = window.innerHeight;
         var edgeWasNotTouched = true;
         if (parseInt(tooltipHeight.substr(0, tooltipHeight.length-2)) < 0) {
-            tooltipSpan.innerHTML = 'Where do you go, mate?' + '<br />' + 'To the Artic Ocean?';
+            tooltipSpan.innerHTML = 'Where do you go, mate?<br />To the Artic Ocean?';
             edgeWasNotTouched = false;
         } else if (parseInt(tooltipHeight.substr(0, tooltipHeight.length-2)) > windowMaxHeight - 10) {
             tooltipSpan.innerHTML = 'Our destination is not Africa. Please, go back to Europe.';
@@ -119,19 +119,19 @@ app.tutorial = {
             $("#newsModal").on("shown.bs.modal", function () {
                 if (mobileDevice) {
                     app.tutorial.openMobileTutorialModalWithNewInstruction("Well done! Now a list appeared, which contains datas of articles about the selected country. " +
-                    "If you click the reading man icon at the end of a line, " +
-                    "the whole article will open in your browser. " +
-                    "Please, close the list with the X button at the top right corner, " + 
-                    "or the Close button at the bottom right corner!");
+                                                            "If you click the reading man icon at the end of a line, " +
+                                                            "the whole article will open in your browser. " +
+                                                            "Please, close the list with the X button at the top right corner, " + 
+                                                            "or the Close button at the bottom right corner!");
                 } else {
                     originalTooltipInnerHTML = tooltipSpan.innerHTML = "Well done!" + "<br />" + "<br />" +  
-                    "Here you can read the titles and other datas of articles about the selected country.<br />" +
-                    "If you can't see the bottom of the list, you can navigate with the vertical scrolling bar<br />" + 
-                    "at the right side of the window.<br />" +
-                    "If you click the reading man icon at the end of a line,<br />" +
-                    "the whole article will open in another tab in your browser.<br /><br />" +
-                    "Please, close this list with the X button at the top right corner,<br />" + 
-                    "or the Close button at the bottom right corner!";
+                                                            "Here you can read the titles and other datas of articles about the selected country.<br />" +
+                                                            "If you can't see the bottom of the list, you can navigate with the vertical scrolling bar<br />" + 
+                                                            "at the right side of the window.<br />" +
+                                                            "If you click the reading man icon at the end of a line,<br />" +
+                                                            "the whole article will open in another tab in your browser.<br /><br />" +
+                                                            "Please, close this list with the X button at the top right corner,<br />" + 
+                                                            "or the Close button at the bottom right corner!";
                 }
             });
             
@@ -177,13 +177,13 @@ app.tutorial = {
         }
         if (mobileDevice) {
             app.tutorial.openMobileTutorialModalWithNewInstruction("Okay. Below the map, there is a horizontal yellow bar. " + 
-                    "There you can read a scrolling text: the top headlines by the selected news agency. " +
-                    "Please, click another agency above the map.");
+                                    "There you can read a scrolling text: the top headlines by the selected news agency. " +
+                                    "Please, click another agency above the map.");
         } else {
             originalTooltipInnerHTML = tooltipSpan.innerHTML = "Okay. <br />" +
-            "At the lower section of this page, there is a horizontal yellow bar. <br />" + 
-            "There you can read a scrolling text: the top headlines by the selected news agency. <br />" +
-            "Please, click another agency above the map.";
+                                    "At the lower section of this page, there is a horizontal yellow bar. <br />" + 
+                                    "There you can read a scrolling text: the top headlines by the selected news agency. <br />" +
+                                    "Please, click another agency above the map.";
         }
     },
 
@@ -192,7 +192,7 @@ app.tutorial = {
         if (previousNewsAgency == currentNewsAgency) {
             if (mobileDevice){
                 app.tutorial.openMobileTutorialModalWithNewInstruction("You clicked the current news agency. " +
-                    "Please, select another one.");
+                                                                    "Please, select another one.");
             } else {
                 originalTooltipInnerHTML = tooltipSpan.innerHTML = "You clicked the current news agency.<br />" +
                                                                     "Please, select another one.";
@@ -213,7 +213,7 @@ app.tutorial = {
         var scrollingTextContainer = document.getElementById('text-container-div');
         if (mobileDevice){
             app.tutorial.openMobileTutorialModalWithNewInstruction("Great! If you touch the scrolling text, it will stop, " +
-            "so you will be able to read the headlines calmly. Let's go there!");
+                                                                "so you will be able to read the headlines calmly. Let's go there!");
             scrollingTextContainer.addEventListener('touchstart', app.tutorial.textStopOnScroller, false);
         } else {
             originalTooltipInnerHTML = tooltipSpan.innerHTML = "Great!<br/>If you put the mouse pointer over the scrolling text, it will stop,<br/>" +
@@ -238,7 +238,7 @@ app.tutorial = {
     },
 
     inactivateMenus: function(){
-        // Info: https://css-tricks.com/how-to-disable-links/
+        // Good tips: https://css-tricks.com/how-to-disable-links/
         var menus = document.getElementsByClassName('nav-item');
         for (index = 0; index < menus.length; index++){
             menus[index].classList.add("isDisabled");

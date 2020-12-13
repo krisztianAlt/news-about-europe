@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    {{ super() }}
     <script src="{{url_for('static', filename='js/map_handler.js')}}" defer="defer"></script>
     <script src="{{url_for('static', filename='js/scroller.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/menu_handler.js')}}" defer></script>
@@ -28,20 +27,12 @@
                 <label class="form-check-label" for="inlineRadio2">CBC News</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="cnn">
-                <label class="form-check-label" for="inlineRadio3">CNN</label>
-            </div>
-            <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="independent">
                 <label class="form-check-label" for="inlineRadio3">Independent</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="reuters">
-                <label class="form-check-label" for="inlineRadio3">Reuters</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="time">
-                <label class="form-check-label" for="inlineRadio3">Time</label>
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="reuters">
+                <label class="form-check-label" for="inlineRadio4">Reuters</label>
             </div>
         </div>
         <div class="form-check form-check-inline">
@@ -611,7 +602,7 @@
                                 <th>Title</th>
                                 <th>Author</th>
                                 <th>Date</th>
-                                <th id="image-container">Image</th>
+                                <th>Image</th>
                                 <th>Link</th>
                             </tr>
                         </thead>

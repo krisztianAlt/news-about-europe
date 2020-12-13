@@ -1,10 +1,6 @@
 import data_manager
 from flask import Flask, request, render_template, url_for, jsonify
 
-# For Usage menu (maybe Tutorial would be better):
-# http://jsfiddle.net/JVDFc/
-# https://www.w3schools.com/css/css_tooltip.asp
-
 app = Flask(__name__)
 app.secret_key = data_manager.config['flask_secret_key']['SECRET_KEY']
 port_number = data_manager.config['port']['port_number']

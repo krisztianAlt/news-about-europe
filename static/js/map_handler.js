@@ -114,13 +114,13 @@ app.mapHandling = {
         var modalTitle = document.getElementById("newsModalLabel");
         modalTitle.textContent = "News about " + countryName + " from " + app.scrollerHandling.convertNewsAgencyName(newsAgency);
 
-        // delete previous news-table content in the modal:
+        // Delete previous news-table content in the modal:
         var deleteNewsRows = document.getElementsByClassName('news-table-row');
         while (deleteNewsRows.length > 0) {
             deleteNewsRows[0].remove();
         }
 
-        // put data into the table, row by row:
+        // Put data into the table, row by row:
         var newsTable = document.getElementById('news-table-body');
         for (newsIndex = 0; newsIndex < news.length; newsIndex++) {
 
@@ -140,9 +140,6 @@ app.mapHandling = {
 
             var link = document.createElement('td');
             var anchor = document.createElement('a');
-            /*document.createElement('href');
-            var linkText = document.createTextNode("Read");
-            anchor.appendChild(linkText);*/
             var linkImage = document.createElement('img');
             linkImage.setAttribute('class', 'icon-in-modal');
             linkImage.setAttribute('src', '/static/newspaper-icon.png');
