@@ -4,14 +4,16 @@ var originalTooltipInnerHTML;
 var failedClickOnMap;
 var previousNewsAgency;
 var tooltipSpan;
+var tutorialCheckbox;
 
 app.tutorial = {
     
     // Info: http://jsfiddle.net/HJf8q/2/
+    // https://dev.to/timhuang/a-simple-way-to-detect-if-browser-is-on-a-mobile-device-with-javascript-44j3
     
-    activateTutorialButton: function() {
-        var tutorialButton = document.getElementById('tutorial-button');
-        tutorialButton.addEventListener('click', activateTooltip, false);
+    activateTutorialSwitch: function() {
+        tutorialCheckbox = document.getElementById('tutorial-checkbox');
+        tutorialCheckbox.addEventListener('click', activateTooltip, false);
         
         function activateTooltip(event) {
             tutorialEnds = false;
@@ -20,29 +22,19 @@ app.tutorial = {
                 countriesWithEventListeners[index].removeEventListener('click', app.mapHandling.clickOnCountry);
             }
             
-            // Inactivate menus:
             app.tutorial.inactivateMenus();
+            app.tutorial.moveRightTutorialSwitchFirst();
 
             // Create tooltip:
             tooltipSpan = document.createElement('span');
             tooltipSpan.setAttribute('id', 'tooltip-span');
-            counter = 9;
-            originalTooltipInnerHTML = tooltipSpan.innerHTML = 'Hello!<br />Our tutorial starts. I go with your mouse pointer.<br />' + 
-                                                            'You will get the first instruction after ' + counter + ' seconds.';
-            var countdown = setInterval(function () {
-                counter--;
-                originalTooltipInnerHTML = tooltipSpan.innerHTML = 'Hello!<br />Our tutorial starts. I go with your mouse pointer.'  + 
-                    '<br />You will get the first instruction after ' + counter + ' seconds.';
-                if (counter < 1){
-                    clearInterval(countdown);
-                    app.tutorial.firstInstruction();
-                };
-            },
-            1000);
-
+            originalTooltipInnerHTML = tooltipSpan.innerHTML =
+                        'Hello!<br />Our tutorial starts. I go with your mouse pointer.<br />' + 
+                        'Please, click again the Tutorial mode toggle<br/>to get the first instruction.';
             document.getElementById('place-of-tooltip').appendChild(tooltipSpan);
             window.addEventListener('mousemove', app.tutorial.tooltipPositioning, false);
-            tutorialButton.removeEventListener('click', activateTooltip);
+            tutorialCheckbox.addEventListener('click', app.tutorial.firstInstruction, false);
+            tutorialCheckbox.removeEventListener('click', activateTooltip);
         };
     },
 
@@ -57,9 +49,9 @@ app.tutorial = {
         if (parseInt(tooltipHeight.substr(0, tooltipHeight.length-2)) < 0) {
             tooltipSpan.innerHTML = 'Where do you go, mate?' + '<br />' + 'To the Artic Ocean?';
             edgeWasNotTouched = false;
-        } else if (parseInt(tooltipHeight.substr(0, tooltipHeight.length-2)) > windowMaxHeight - 20) {
+        } else if (parseInt(tooltipHeight.substr(0, tooltipHeight.length-2)) > windowMaxHeight - 10) {
             tooltipSpan.innerHTML = 'Our destination is not Africa. Please, go back to Europe.';
-            tooltipSpan.style.top = (y-15) + 'px';
+            tooltipSpan.style.top = (y-40) + 'px';
             edgeWasNotTouched = false;
         } else if (parseInt(tooltipWidth.substr(0, tooltipWidth.length-2)) < 23) {
             tooltipSpan.innerHTML = 'Are you Mr. Columbus?';
@@ -68,6 +60,8 @@ app.tutorial = {
             tooltipSpan.innerHTML = '"Go West!"';
             edgeWasNotTouched = false;
             tooltipSpan.style.left = (x-100) + 'px';
+        } else if (parseInt(tooltipHeight.substr(0, tooltipHeight.length-2)) > windowMaxHeight - 100) {
+            tooltipSpan.style.top = (y-50) + 'px';
         }
         if (edgeWasNotTouched) {
             tooltipSpan.innerHTML = originalTooltipInnerHTML;  
@@ -75,10 +69,15 @@ app.tutorial = {
     },
 
     firstInstruction: function () {
-        originalTooltipInnerHTML = tooltipSpan.innerHTML = "On this page you can see the map of Europe." + "<br />" +
-                                                            "Above the map you can find the available news agencies, the current is marked." + "<br />" +
-                                                            "If you click on a country, you will get the datas of the most relevant articles from the collection of the current news agency," + "<br />" +
-                                                            "about the selected country. <br /> <br /> Let's try it, please, click Hungary on the map!";
+        tutorialCheckbox.removeEventListener('click', app.tutorial.firstInstruction);
+        app.tutorial.moveRightTutorialSwitchSecond();
+        originalTooltipInnerHTML = tooltipSpan.innerHTML = "On this page you can see the map of Europe.<br />" +
+                                                            "Above the map you can find the available news agencies,<br/>" +
+                                                            "the current is marked. If you click a country on the map,<br/>" +
+                                                            "you will get the datas of the most relevant articles<br/>" +
+                                                            "from the collection of the current news agency,<br/>" +
+                                                            "about the selected country.<br /><br />" +
+                                                            "Please, try it: click Hungary on the map!";
         
         app.tutorial.secondInstruction();
     },
@@ -95,16 +94,18 @@ app.tutorial = {
         var countryID = this.getAttribute("id");
         var countryName = this.childNodes[0].textContent;
         if (countryID == 'hu-3') {
-            originalTooltipInnerHTML = tooltipSpan.innerHTML = "Well done!" + "<br />" + "<br />" +  
-                                        "Here you can read the titles and other datas of articles about the selected country." + "<br />" +
-                                        "If you can't see the bottom of the list, you can navigate with the vertical scrolling bar" + "<br />" + 
-                                        "at the right side of the window." +
-                                        "<br />" + "If you click the reading man icon at the end of a line," + "<br />" +
-                                        "the whole article will open in another tab in your browser." + "<br />" + "<br />" +
-                                        "Please, close this list with the X button at the top right corner," + "<br />" + 
-                                        "or the Close button at the bottom right corner!";
-            
             app.mapHandling.getDataFromApi(countryIdsAndRawNames['hu-3'], 'Hungary');
+
+            $("#newsModal").on("shown.bs.modal", function () {
+                originalTooltipInnerHTML = tooltipSpan.innerHTML = "Well done!" + "<br />" + "<br />" +  
+                "Here you can read the titles and other datas of articles about the selected country.<br />" +
+                "If you can't see the bottom of the list, you can navigate with the vertical scrolling bar<br />" + 
+                "at the right side of the window.<br />" +
+                "If you click the reading man icon at the end of a line,<br />" +
+                "the whole article will open in another tab in your browser.<br /><br />" +
+                "Please, close this list with the X button at the top right corner,<br />" + 
+                "or the Close button at the bottom right corner!"; 
+            });
             
             // Remove current eventListeners from countries on the map:
             for (index = 0; index < countriesWithEventListeners.length; index++){
@@ -117,11 +118,11 @@ app.tutorial = {
             });
 
         } else if (countryID != 'hu-3' && failedClickOnMap == 0) {
-            originalTooltipInnerHTML = tooltipSpan.innerHTML = "It's not Hungary. It's " + countryName + ". <br />" +"Hungary is a schnitzel shaped" + "<br />" + 
+            originalTooltipInnerHTML = tooltipSpan.innerHTML = "It's not Hungary. It's " + countryName + ".<br />Hungary is a schnitzel shaped<br />" + 
                                                                 "country in the hearth of Europe. <br /> Click it!";
             failedClickOnMap++;
         } else {
-            originalTooltipInnerHTML = tooltipSpan.innerHTML = "Oh, I see... You are a natural born tester. <br />" + 
+            originalTooltipInnerHTML = tooltipSpan.innerHTML = "Oh, I see... You are a natural born tester.<br />" + 
                                                                 "It's not Hungary. It's " + countryName + ", as you know. <br />" + 
                                                                 "Click Hungary!";
         }
@@ -145,7 +146,7 @@ app.tutorial = {
     clickOnNewsAgencyRadioButtons: function(){
         var currentNewsAgency = app.mapHandling.getSelectedNewsAgency();
         if (previousNewsAgency == currentNewsAgency) {
-            originalTooltipInnerHTML = tooltipSpan.innerHTML = "You clicked the current news agency. <br />" +
+            originalTooltipInnerHTML = tooltipSpan.innerHTML = "You clicked the current news agency.<br />" +
                         "Please, select another one.";
         } else {
             
@@ -171,18 +172,10 @@ app.tutorial = {
         scrollingText.removeEventListener('mouseenter', app.tutorial.mouseOnScroller);
 
         var counter = 10;
-        originalTooltipInnerHTML = tooltipSpan.innerHTML = 'OK. The tutorial ends.<br/>The countries on the map will be clickable again after '  + counter + ' seconds.<br/>' +
-                                                                "Thank you for your attention!";
-        var countdown = setInterval(function () {
-            counter--;
-            originalTooltipInnerHTML = tooltipSpan.innerHTML = 'OK. The tutorial ends.<br/>The countries on the map will be clickable again after '  + counter + ' seconds.<br/>' +
-                                                                "Thank you for your attention!";
-            if (counter < 1){
-                clearInterval(countdown);
-                app.tutorial.stopTutorial();
-            };
-        },
-        1000);
+        originalTooltipInnerHTML = tooltipSpan.innerHTML = 'OK. The tutorial ends.<br/>Just click again the Tutorial mode toggle,<br/>' +
+                                                            'and the countries on the map will be clickable again.<br/>' +
+                                                            'Thank you for your attention!';
+        tutorialCheckbox.addEventListener('click', app.tutorial.stopTutorial, false);
     },
 
     inactivateMenus: function(){
@@ -200,12 +193,29 @@ app.tutorial = {
         }
     },
 
+    moveRightTutorialSwitchFirst: function(){
+        $(".slider").css({backgroundColor: "#a1a1a1"});
+        $("#circle").animate({left: "14px"}, 500);
+    },
+
+    moveRightTutorialSwitchSecond: function(){
+        $(".slider").css({backgroundColor: "#7ABA7A"});
+        $("#circle").animate({left: "25px"}, 500);
+    },
+
+    moveLeftTutorialSwitch: function(){
+        $(".slider").css({backgroundColor: "#ccc"});
+        $("#circle").animate({left: "2px"}, 500);
+    },
+
     stopTutorial: function(){
+        tutorialCheckbox.removeEventListener('click', app.tutorial.stopTutorial);
         document.getElementById('place-of-tooltip').removeChild(tooltipSpan);
         window.removeEventListener('mousemove', app.tutorial.tooltipPositioning);
         app.tutorial.activateMenus();
+        app.tutorial.moveLeftTutorialSwitch();
         app.mapHandling.addEventListenersToCountries();
-        app.tutorial.activateTutorialButton();
+        app.tutorial.activateTutorialSwitch();
         app.menuHandling.setFirstMenuToActive();
     }
 }

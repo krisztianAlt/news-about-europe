@@ -94,10 +94,7 @@ app.scrollerHandling = {
                     if (xPosition+textWidth > 0) {
                         app.scrollerHandling.stopActualScrollingUnit();
                         if (newsAgencyChanged == false) {
-                            //app.scrollerHandling.stopActualScrollingUnit();
                             scrolling ();    
-                        } else {
-                            //app.scrollerHandling.stopActualScrollingUnit();
                         }
                     }
                 },

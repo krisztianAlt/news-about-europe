@@ -12,6 +12,10 @@ body {
     box-sizing: border-box;
 }
 
+.navbar {
+    padding: .2rem 1rem;
+}
+
 .navbar-dark .navbar-brand{
     color: #FF0;
 }
@@ -50,15 +54,28 @@ body {
     color: rgba(255,255,1,.7);
 }
 
-#news-agency-selector-area {
-    margin: auto;
+#selector-div {
     max-width: 90%;
+    margin: auto;
     text-align: center;
 }
 
+#news-agency-selector-area {
+    display: inline-block;
+    margin-top: 2px;
+    text-align: center;
+}
+
+#news-agency-selector-badge {
+    vertical-align: middle;
+    margin-top: -0.4em;
+}
+
+#news-agency-selector-badge-label {
+    margin: 0 !important;
+}
+
 .svg-container {
-    /*max-width: 100%;
-    height: auto;*/
     margin: 1% auto;
     background-color:#b0d1ff;
     padding: 0;
@@ -86,10 +103,7 @@ path:hover {
 }
 
 #footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    
     margin: 0 auto;
     background-color: #007bff;
 }
@@ -116,6 +130,7 @@ path:hover {
     padding: 30px 0 30px 0;
     text-align: center;
 }
+
 .modal-dialog {
     max-width: 700px;
 }
@@ -162,6 +177,78 @@ path:hover {
     cursor: pointer;
 }
 
-.scroll-left p:hover {
-    animation-play-state: paused;
+#place-of-tooltip {
+    text-decoration: none;
+    position: relative;
 }
+
+#tooltip-span {
+    display: block;
+    position: fixed;
+    overflow: hidden;
+    padding: 0 5px;
+    z-index: 1051;
+    background-color: darkblue;
+    color: white;
+    border-radius: 6px;
+    text-align: left;
+}
+
+.isDisabled {
+    color: currentColor;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+#switch-container {
+    display: inline-block;
+    padding: 0 25px;
+}
+
+#tutorial-badge {
+    vertical-align: middle;
+    margin-top: -0.4em;
+    background-color: #76119e;
+}
+
+#switch-container {
+    margin-top: -0.1em;
+    text-align: center;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 17px;
+    margin-bottom: 0;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 17px;
+  }
+  
+  #circle {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+  }

@@ -50,23 +50,33 @@ var countryIdsAndRawNames = {
     "transnistria_proper-2": "transnistria",
     "ua-2": "ukraine",
     "xk-6": "kosovo"
-}
+};
+
+var countriesWithEventListeners = [];
 
 app.mapHandling = {
 
     activateCountriesOnMap: function () {
         var countriesOnMap = document.getElementsByTagName('path');
         for (index = 0; index < countriesOnMap.length; index++) {
-            countriesOnMap[index].addEventListener('click', function () {
-                var countryID = this.getAttribute("id");
-                console.log(countryID);
-                if (countryID in countryIdsAndRawNames) {
-                    var countryName = this.childNodes[0].textContent;
-                    console.log(countryName);
-                    app.mapHandling.getDataFromApi(countryIdsAndRawNames[countryID], countryName);
-                }    
-            })
+            var country = countriesOnMap[index];
+            countriesWithEventListeners.push(country);
         };
+        app.mapHandling.addEventListenersToCountries();
+    },
+
+    addEventListenersToCountries: function(){
+        for (index = 0; index < countriesWithEventListeners.length; index++){
+            countriesWithEventListeners[index].addEventListener('click', app.mapHandling.clickOnCountry, false);
+        }
+    },
+
+    clickOnCountry: function () {
+        var countryID = this.getAttribute("id");
+        if (countryID in countryIdsAndRawNames) {
+            var countryName = this.childNodes[0].textContent;
+            app.mapHandling.getDataFromApi(countryIdsAndRawNames[countryID], countryName);
+        }    
     },
 
     getDataFromApi: function (countryRawName, countryName) {

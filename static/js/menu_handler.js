@@ -6,6 +6,9 @@ app.menuHandling = {
         var menuSection = document.getElementById("navbarSupportedContent");
         var menus = menuSection.getElementsByClassName("nav-item");
         menus.item(0).className += " active";
+        if (menus.item(1).className.includes("active")) {
+            menus.item(1).className = menus.item(1).className.replace(" active", "");
+        }
     },
 
 
