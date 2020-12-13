@@ -5,18 +5,18 @@ var failedClickOnMap;
 var previousNewsAgency;
 var tooltipSpan;
 var tutorialCheckbox;
+var mobileTutorialParagraph;
 
 app.tutorial = {
     
-    // Info: http://jsfiddle.net/HJf8q/2/
-    // https://dev.to/timhuang/a-simple-way-to-detect-if-browser-is-on-a-mobile-device-with-javascript-44j3
-    
     activateTutorialSwitch: function() {
+
         tutorialCheckbox = document.getElementById('tutorial-checkbox');
-        tutorialCheckbox.addEventListener('click', activateTooltip, false);
+        tutorialCheckbox.addEventListener('click', activateTooltipOrModal, false);
         
-        function activateTooltip(event) {
+        function activateTooltipOrModal(event) {
             tutorialEnds = false;
+
             // Remove original eventListeners from countries on the map:
             for (index = 0; index < countriesWithEventListeners.length; index++){
                 countriesWithEventListeners[index].removeEventListener('click', app.mapHandling.clickOnCountry);
@@ -25,16 +25,28 @@ app.tutorial = {
             app.tutorial.inactivateMenus();
             app.tutorial.moveRightTutorialSwitchFirst();
 
-            // Create tooltip:
-            tooltipSpan = document.createElement('span');
-            tooltipSpan.setAttribute('id', 'tooltip-span');
-            originalTooltipInnerHTML = tooltipSpan.innerHTML =
-                        'Hello!<br />Our tutorial starts. I go with your mouse pointer.<br />' + 
-                        'Please, click again the Tutorial mode toggle<br/>to get the first instruction.';
-            document.getElementById('place-of-tooltip').appendChild(tooltipSpan);
-            window.addEventListener('mousemove', app.tutorial.tooltipPositioning, false);
-            tutorialCheckbox.addEventListener('click', app.tutorial.firstInstruction, false);
-            tutorialCheckbox.removeEventListener('click', activateTooltip);
+            if (mobileDevice){
+                // Show tutorial info modal:
+                app.tutorial.openMobileTutorialModalWithNewInstruction("Hello! Our tutorial starts. " + 
+                                        "Close this info window, and you will get your first instruction.");
+
+                $("#tutorialModal").on("hidden.bs.modal", function () {
+                    $("#tutorialModal").off("shown.bs.modal");
+                    app.tutorial.firstInstruction();
+                    $("#tutorialModal").off("hidden.bs.modal");
+                });
+            } else {
+                // Create tooltip:
+                tooltipSpan = document.createElement('span');
+                tooltipSpan.setAttribute('id', 'tooltip-span');
+                originalTooltipInnerHTML = tooltipSpan.innerHTML =
+                            'Hello!<br />Our tutorial starts. I go with your mouse pointer.<br />' + 
+                            'Please, click again the Tutorial mode toggle<br/>to get the first instruction.';
+                document.getElementById('place-of-tooltip').appendChild(tooltipSpan);
+                window.addEventListener('mousemove', app.tutorial.tooltipPositioning, false);  
+                tutorialCheckbox.addEventListener('click', app.tutorial.firstInstruction, false);
+            }
+            tutorialCheckbox.removeEventListener('click', activateTooltipOrModal);   
         };
     },
 
@@ -68,17 +80,26 @@ app.tutorial = {
         }
     },
 
-    firstInstruction: function () {
-        tutorialCheckbox.removeEventListener('click', app.tutorial.firstInstruction);
-        app.tutorial.moveRightTutorialSwitchSecond();
-        originalTooltipInnerHTML = tooltipSpan.innerHTML = "On this page you can see the map of Europe.<br />" +
+    firstInstruction: function () {  
+        if (mobileDevice){
+            app.tutorial.openMobileTutorialModalWithNewInstruction("On this webpage you can see the map of Europe. " +
+                                                        "Above the available news agencies, " +
+                                                        "the current is marked. If you click a country on the map, " +
+                                                        "you will get datas of the most relevant articles " +
+                                                        "from the collection of the current news agency, " +
+                                                        "about the selected country. " +
+                                                        "Please, try it: click Hungary on the map!");
+        } else {
+            tutorialCheckbox.removeEventListener('click', app.tutorial.firstInstruction);
+            app.tutorial.moveRightTutorialSwitchSecond();
+            originalTooltipInnerHTML = tooltipSpan.innerHTML = "On this page you can see the map of Europe.<br />" +
                                                             "Above the map you can find the available news agencies,<br/>" +
                                                             "the current is marked. If you click a country on the map,<br/>" +
                                                             "you will get the datas of the most relevant articles<br/>" +
                                                             "from the collection of the current news agency,<br/>" +
                                                             "about the selected country.<br /><br />" +
                                                             "Please, try it: click Hungary on the map!";
-        
+        }
         app.tutorial.secondInstruction();
     },
     
@@ -95,16 +116,23 @@ app.tutorial = {
         var countryName = this.childNodes[0].textContent;
         if (countryID == 'hu-3') {
             app.mapHandling.getDataFromApi(countryIdsAndRawNames['hu-3'], 'Hungary');
-
             $("#newsModal").on("shown.bs.modal", function () {
-                originalTooltipInnerHTML = tooltipSpan.innerHTML = "Well done!" + "<br />" + "<br />" +  
-                "Here you can read the titles and other datas of articles about the selected country.<br />" +
-                "If you can't see the bottom of the list, you can navigate with the vertical scrolling bar<br />" + 
-                "at the right side of the window.<br />" +
-                "If you click the reading man icon at the end of a line,<br />" +
-                "the whole article will open in another tab in your browser.<br /><br />" +
-                "Please, close this list with the X button at the top right corner,<br />" + 
-                "or the Close button at the bottom right corner!"; 
+                if (mobileDevice) {
+                    app.tutorial.openMobileTutorialModalWithNewInstruction("Well done! Now a list appeared, which contains datas of articles about the selected country. " +
+                    "If you click the reading man icon at the end of a line, " +
+                    "the whole article will open in your browser. " +
+                    "Please, close the list with the X button at the top right corner, " + 
+                    "or the Close button at the bottom right corner!");
+                } else {
+                    originalTooltipInnerHTML = tooltipSpan.innerHTML = "Well done!" + "<br />" + "<br />" +  
+                    "Here you can read the titles and other datas of articles about the selected country.<br />" +
+                    "If you can't see the bottom of the list, you can navigate with the vertical scrolling bar<br />" + 
+                    "at the right side of the window.<br />" +
+                    "If you click the reading man icon at the end of a line,<br />" +
+                    "the whole article will open in another tab in your browser.<br /><br />" +
+                    "Please, close this list with the X button at the top right corner,<br />" + 
+                    "or the Close button at the bottom right corner!";
+                }
             });
             
             // Remove current eventListeners from countries on the map:
@@ -114,17 +142,30 @@ app.tutorial = {
             }
 
             $("#newsModal").on("hidden.bs.modal", function () {
+                $("#newsModal").off("shown.bs.modal");
                 app.tutorial.thirdInstruction();
+                $("#newsModal").off("hidden.bs.modal");
             });
 
         } else if (countryID != 'hu-3' && failedClickOnMap == 0) {
-            originalTooltipInnerHTML = tooltipSpan.innerHTML = "It's not Hungary. It's " + countryName + ".<br />Hungary is a schnitzel shaped<br />" + 
-                                                                "country in the hearth of Europe. <br /> Click it!";
+            if (mobileDevice){
+                app.tutorial.openMobileTutorialModalWithNewInstruction("It's not Hungary. It's " + 
+                                                        countryName + ". Hungary is a schnitzel shaped " + 
+                                                        "country in the hearth of Europe. Click it!"); 
+            } else {
+                originalTooltipInnerHTML = tooltipSpan.innerHTML = "It's not Hungary. It's " + countryName + ".<br />Hungary is a schnitzel shaped<br />" + 
+                "country in the hearth of Europe. <br /> Click it!";
+            }
             failedClickOnMap++;
         } else {
-            originalTooltipInnerHTML = tooltipSpan.innerHTML = "Oh, I see... You are a natural born tester.<br />" + 
+            if (mobileDevice) {
+                app.tutorial.openMobileTutorialModalWithNewInstruction("Oh, I see... You are a natural born tester. " + 
+                "It's not Hungary. It's " + countryName + ", as you know. Click Hungary!");
+            } else {
+                originalTooltipInnerHTML = tooltipSpan.innerHTML = "Oh, I see... You are a natural born tester.<br />" + 
                                                                 "It's not Hungary. It's " + countryName + ", as you know. <br />" + 
                                                                 "Click Hungary!";
+            }
         }
     },
 
@@ -134,22 +175,30 @@ app.tutorial = {
         for (index = 0; index < newsAgencyRadios.length; index++) {
             newsAgencyRadios[index].addEventListener('click', app.tutorial.clickOnNewsAgencyRadioButtons, false);
         }
-
-        originalTooltipInnerHTML = tooltipSpan.innerHTML = "Okay. <br />" +
-                        "At the lower section of this page, there is a horizontal yellow bar. <br />" + 
-                        "There you can read a scrolling text: the top headlines by the selected news agency. <br />" +
-                        "Please, click another agency above the map.";
-        
-        
+        if (mobileDevice) {
+            app.tutorial.openMobileTutorialModalWithNewInstruction("Okay. Below the map, there is a horizontal yellow bar. " + 
+                    "There you can read a scrolling text: the top headlines by the selected news agency. " +
+                    "Please, click another agency above the map.");
+        } else {
+            originalTooltipInnerHTML = tooltipSpan.innerHTML = "Okay. <br />" +
+            "At the lower section of this page, there is a horizontal yellow bar. <br />" + 
+            "There you can read a scrolling text: the top headlines by the selected news agency. <br />" +
+            "Please, click another agency above the map.";
+        }
     },
 
     clickOnNewsAgencyRadioButtons: function(){
         var currentNewsAgency = app.mapHandling.getSelectedNewsAgency();
         if (previousNewsAgency == currentNewsAgency) {
-            originalTooltipInnerHTML = tooltipSpan.innerHTML = "You clicked the current news agency.<br />" +
-                        "Please, select another one.";
+            if (mobileDevice){
+                app.tutorial.openMobileTutorialModalWithNewInstruction("You clicked the current news agency. " +
+                    "Please, select another one.");
+            } else {
+                originalTooltipInnerHTML = tooltipSpan.innerHTML = "You clicked the current news agency.<br />" +
+                                                                    "Please, select another one.";
+            }
         } else {
-            
+        
             // Remove eventListeners from news agency radio buttons:
             var newsAgencyRadios = document.getElementsByClassName('form-check-input');
             for (index = 0; index < newsAgencyRadios.length; index++) {
@@ -161,20 +210,30 @@ app.tutorial = {
     },
 
     fourthInstruction: function() {
-        originalTooltipInnerHTML = tooltipSpan.innerHTML = "Great!<br/>If you put the mouse pointer over the scrolling text, it will stop,<br/>" +
-                                "so you will be able to read the headlines calmly. <br/> Let's go there!";
-        var scrollingText = document.getElementById('text-container-div');
-        scrollingText.addEventListener('mouseenter', app.tutorial.mouseOnScroller, false);
+        var scrollingTextContainer = document.getElementById('text-container-div');
+        if (mobileDevice){
+            app.tutorial.openMobileTutorialModalWithNewInstruction("Great! If you touch the scrolling text, it will stop, " +
+            "so you will be able to read the headlines calmly. Let's go there!");
+            scrollingTextContainer.addEventListener('touchstart', app.tutorial.textStopOnScroller, false);
+        } else {
+            originalTooltipInnerHTML = tooltipSpan.innerHTML = "Great!<br/>If you put the mouse pointer over the scrolling text, it will stop,<br/>" +
+                                                                "so you will be able to read the headlines calmly. <br/> Let's go there!";
+            scrollingTextContainer.addEventListener('mouseenter', app.tutorial.textStopOnScroller, false);
+        }
     },
 
-    mouseOnScroller: function(){
-        var scrollingText = document.getElementById('text-container-div');
-        scrollingText.removeEventListener('mouseenter', app.tutorial.mouseOnScroller);
-
-        var counter = 10;
-        originalTooltipInnerHTML = tooltipSpan.innerHTML = 'OK. The tutorial ends.<br/>Just click again the Tutorial mode toggle,<br/>' +
-                                                            'and the countries on the map will be clickable again.<br/>' +
-                                                            'Thank you for your attention!';
+    textStopOnScroller: function(){
+        var scrollingTextContainer = document.getElementById('text-container-div');
+        if (mobileDevice) {
+            scrollingTextContainer.removeEventListener('touchstart', app.tutorial.textStopOnScroller);
+            app.tutorial.openMobileTutorialModalWithNewInstruction('OK. The tutorial ends. Just click again the Tutorial mode toggle, ' +
+                                                                'and the countries on the map and above the menus will be clickable again.');
+        } else {
+            scrollingTextContainer.removeEventListener('mouseenter', app.tutorial.textStopOnScroller);
+            originalTooltipInnerHTML = tooltipSpan.innerHTML = 'OK. The tutorial ends.<br/>Just click again the Tutorial mode toggle,<br/>' +
+                                                                'and the countries on the map and above the menus will be clickable again.<br/>' +
+                                                                'Thank you for your attention!';
+        }
         tutorialCheckbox.addEventListener('click', app.tutorial.stopTutorial, false);
     },
 
@@ -194,8 +253,13 @@ app.tutorial = {
     },
 
     moveRightTutorialSwitchFirst: function(){
-        $(".slider").css({backgroundColor: "#a1a1a1"});
-        $("#circle").animate({left: "14px"}, 500);
+        if (mobileDevice){
+            $(".slider").css({backgroundColor: "#7ABA7A"});
+            $("#circle").animate({left: "25px"}, 500);
+        } else {
+            $(".slider").css({backgroundColor: "#a1a1a1"});
+            $("#circle").animate({left: "14px"}, 500);
+        }
     },
 
     moveRightTutorialSwitchSecond: function(){
@@ -210,12 +274,22 @@ app.tutorial = {
 
     stopTutorial: function(){
         tutorialCheckbox.removeEventListener('click', app.tutorial.stopTutorial);
-        document.getElementById('place-of-tooltip').removeChild(tooltipSpan);
-        window.removeEventListener('mousemove', app.tutorial.tooltipPositioning);
+        if (mobileDevice) {
+            app.tutorial.openMobileTutorialModalWithNewInstruction('Thank you for your attention!');
+        } else {
+            document.getElementById('place-of-tooltip').removeChild(tooltipSpan);
+            window.removeEventListener('mousemove', app.tutorial.tooltipPositioning);   
+        }
         app.tutorial.activateMenus();
         app.tutorial.moveLeftTutorialSwitch();
         app.mapHandling.addEventListenersToCountries();
         app.tutorial.activateTutorialSwitch();
         app.menuHandling.setFirstMenuToActive();
+    },
+
+    openMobileTutorialModalWithNewInstruction: function(newText) {
+        $('#tutorialModal').modal('toggle');
+        var textParagraph = document.getElementById('tutorial-text');
+        textParagraph.innerHTML = newText;
     }
 }

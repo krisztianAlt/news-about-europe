@@ -5,10 +5,19 @@ var speed = 30;
 var headlinesInOneString = '';
 var actualScrollingUnitWithTimer;
 var newsAgencyChanged;
+var mobileDevice;
 
 app.scrollerHandling = {
 
     startScroller: function () {
+
+        // Detect if the browser runs on mobile device or desktop:
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+            mobileDevice = true;
+          } else {
+            mobileDevice = false;
+        }
+
         var label = document.getElementById('scroller-label');
         label.textContent = 'World news from Reuters';
         app.mapHandling.listeningRadioButtons();
@@ -77,13 +86,23 @@ app.scrollerHandling = {
         var xPosition = scrollingContainerWidth;
         newTextParagraph.style.left = xPosition+"px";            
         
-        newTextParagraph.addEventListener('mouseenter', e => {
-            step = 0;
-        });
-
-        newTextParagraph.addEventListener('mouseleave', e => {
-            step = 2;
-        });
+        if (mobileDevice){
+            newTextParagraph.addEventListener('touchstart', e => {
+                step = 0;
+            });
+    
+            newTextParagraph.addEventListener('touchend', e => {
+                step = 2;
+            });
+        } else {
+            newTextParagraph.addEventListener('mouseenter', e => {
+                step = 0;
+            });
+    
+            newTextParagraph.addEventListener('mouseleave', e => {
+                step = 2;
+            });
+        }
         
         // Scrolling:
         function scrolling () {

@@ -149,6 +149,15 @@ path:hover {
     padding: 5px;
 }
 
+#tutorialModal {
+    z-index: 1051;
+    font-size: .8em;
+}
+
+#tutorialModal .modal-content {
+    background-color: #d1dcff;
+}
+
 .scroll-left {
     overflow: hidden;
     position: relative;
