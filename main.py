@@ -1,5 +1,5 @@
 import data_manager
-from flask import Flask, request, render_template, url_for, jsonify
+from flask import Flask, request, render_template, url_for, json, jsonify
 
 # For Usage menu (maybe Tutorial would be better):
 # http://jsfiddle.net/JVDFc/
@@ -17,14 +17,14 @@ def main_page():
 def get_articles_datas():
     country_name = request.get_json()['country_name']
     selected_news_agency = request.get_json()['selected_news_agency']
-    succeeded, articles = data_manager.get_articles(country_name, selected_news_agency)
-    return jsonify(succeeded=succeeded, article_datas=articles)
+    api_calling_succeeded, articles = data_manager.get_news_from_api(country_name, selected_news_agency)
+    return jsonify(succeeded=api_calling_succeeded, article_datas=articles)
 
 @app.route('/get_top_headlines', methods=['POST'])
 def get_top_headlines_datas():
     selected_news_agency = request.get_json()['selected_news_agency']
-    succeeded, top_headlines = data_manager.get_top_headlines(selected_news_agency)
-    return jsonify(succeeded=succeeded, top_headlines=top_headlines)
+    api_calling_succeeded, top_headlines = data_manager.get_top_headlines(selected_news_agency)
+    return jsonify(succeeded=api_calling_succeeded, top_headlines=top_headlines)
 
 @app.errorhandler(404)
 def page_not_found(e):
