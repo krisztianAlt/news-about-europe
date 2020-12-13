@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+            <title>News About Europe - {% block title %}{% endblock %}</title>
+
+            <!--Favicon-->
+            <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+            
+            <!--Import jquery and Bootstrap-->
+            <script src="{{ url_for('static', filename='jquery/jquery-3.5.1.min.js') }}" ></script>
+            <script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js') }}" ></script>
+            <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+            
+            <!--CSS file-->
+            <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+
+        <!--navigation bar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">News About Europe</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main_page') }}">Map</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mobile version</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--Map-->
+        <section class="content">
+            {% block content %}{% endblock %}
+        </section>
+        
+        <!--Footer-->
+        <div id="footer">
+            
+            <!--Scrolling text-->
+            {% block footer_scroller_content %}{% endblock %}
+
+            <!--Links-->
+            <p id="links">Powered by <a target="_blank" href="https://newsapi.org">News API</a>. Author of map: Maix (from <a target="_blank" href="https://commons.wikimedia.org/wiki/File:Blank_map_of_Europe_cropped.svg">Wikimedia</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA 3.0</a>).</p>
+        </div>
+    </body>
+</html>
