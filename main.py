@@ -1,4 +1,5 @@
 import data_manager
+import os
 from flask import Flask, request, render_template, url_for, jsonify
 
 app = Flask(__name__)
@@ -29,6 +30,7 @@ def page_not_found(e):
     return render_template('404.html')
 
 
-if __name__ == '__main__':
-    app.debug = True
-    app.run(port=port_number)
+if 'DYNO' not in os.environ:
+    if __name__ == '__main__':
+        app.debug = True
+        app.run(port=port_number)

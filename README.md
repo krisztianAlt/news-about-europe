@@ -12,7 +12,7 @@ As a user, you can select "Mobile version" menu at the navigation bar. There you
 
 **About the programming**
 
-With this project I have wanted to practice geting datas from a REST API: sending requests, treat responses at Python back-end. The program sends a request with the selected country and news agency to News API (https://newsapi.org/). News API sends datas of 20 articles in JSON format. The program sorts the articles by publishing date, then lists the article datas in a modal at front-end.
+With this project I have wanted to practice geting datas from a REST API: sending requests, treat responses at Python back-end. The program sends a request with the selected country and news agency to News API (https://newsapi.org/). News API sends datas of 20 articles in JSON format. The program sorts the articles by publishing date, delete recurring articles, then lists the article datas in a modal at front-end.
 
 Because of the restriction of API (100 requests/day, 50 requests/12 hours), the program saves the json datas into database. If more than one user selects the same country and news agency on the same day, the second, third etc. selection will be served from database, only the first will be served with API request. Headlines for the scrolling area are handled in the same way.
 
