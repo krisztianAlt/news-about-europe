@@ -11,6 +11,7 @@ import datetime
 import json
 import psycopg2
 import os
+import urllib
 from operator import itemgetter
 
 config = configparser.ConfigParser()
