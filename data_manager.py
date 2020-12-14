@@ -10,6 +10,7 @@ import requests
 import datetime
 import json
 import psycopg2
+import os
 from operator import itemgetter
 
 config = configparser.ConfigParser()
@@ -18,12 +19,27 @@ actual_api_key = config['newsapi.org']['api_key_1']
 number_of_api_keys = 5
 
 def database_connection():
-    dbname = config['db_connection']['dbname']
-    user = config['db_connection']['user']
-    host = config['db_connection']['host']
-    password = config['db_connection']['password']
-    try:
+    cursor = ''
+    conn = ''
+    
+    # Heroku:
+    if 'DYNO' in os.environ:
+        urllib.parse.uses_netloc.append('postgres')
+        url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+        connect_str = "dbname=" + database + " user=" + user + " host=" + host + " password=" + password + " port=" + port
+    # Localhost:
+    else:
+        dbname = config['db_connection']['dbname']
+        user = config['db_connection']['user']
+        host = config['db_connection']['host']
+        password = config['db_connection']['password']
         connect_str = "dbname=" + dbname + " user=" + user + " host=" + host + " password=" + password
+    try:
         conn = psycopg2.connect(connect_str)
         conn.autocommit = True
         cursor = conn.cursor()
@@ -38,6 +54,9 @@ def query_result(*query):
         cursor.execute(*query)
         rows = cursor.fetchall()
         rows = [list(row) for row in rows]
+    except AttributeError as e:
+        print('There is no database connection.')
+        rows = ""
     except psycopg2.OperationalError as e:
         print('OperationalError')
         print(e)
