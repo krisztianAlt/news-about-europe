@@ -3,13 +3,18 @@
 {% block head %}
     <script src="{{url_for('static', filename='js/map_handler.js')}}" defer="defer"></script>
     <script src="{{url_for('static', filename='js/scroller.js')}}" defer></script>
-    <script src="{{url_for('static', filename='js/menu_handler.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/tutorial.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/radio_button_handler.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/main.js')}}" defer></script>
 {% endblock %}
 
 {% block header %}
     <h1>{% block title %}Map{% endblock %}</h1>
+{% endblock %}
+
+{% block  menus_content %}
+    <li class="nav-item active"><a class="nav-link" href="{{ url_for( 'main_page' ) }} ">Map</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for( 'android' ) }} ">Android version</a></li>
 {% endblock %}
 
 {% block content %}
