@@ -11,11 +11,19 @@
 
 {% block content %}
     <div id ="info">
-        <p>Hi</p>
-        <p>info</p>
+        <p>In the mobile version of News About Europe, you can select from not four, but six news agencies. Countries are represented by their flags instead of map.</p>
+        <p>You can reorder the list of articles by title, author and date, in ascending and descending order too. You can mark articles as your favorite.</p>
+        <p>Favorite articles are saved, so you can list them later.</p>
+        <p>Mobile version works with your own API key, so you should register on <a target="_blank" href="https://newsapi.org/pricing">News API</a> for the key. Just select the "Developer" option, it's totally free. You will get the key in e-mail. You should type it into the app's key handler screen.</p>
+        <br/>
+        <p>You have two options to install the app.</p>
+        <p>1. Visit News About Europe site in the browser of your mobile device, and touch the Download button below. Save the APK file into your device's Downloads folder. Then you should start the Files app, touch <span class="italic-text">Downloads</span>, then select and install <span class="italic-text">news-about-europe-for-android.apk</span>.</p>
         <button type="button" class="btn btn-primary" target="_blank" onclick="window.location.href='{{ url_for( 'download_apk' ) }}';">Download</button>
         {% if error %}
             <p class="warning"> Something went wrong, please, try later! </p>
         {% endif %}
+        <br/>
+        <br/>
+        <p>2. Clone the project's <a target="_blank" href="https://github.com/krisztianAlt/news-about-europe-for-android">GitHub repo</a>, open the project in Android Studio, and run the app on your device or an emulator, as you wish.</p>
     </div>
 {% endblock %}
