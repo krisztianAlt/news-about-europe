@@ -1,6 +1,6 @@
 import data_manager
 import os
-from flask import Flask, request, render_template, url_for, jsonify
+from flask import Flask, request, render_template, url_for, jsonify, send_file, send_from_directory
 
 app = Flask(__name__)
 app.secret_key = data_manager.config['flask_secret_key']['SECRET_KEY']
@@ -8,7 +8,6 @@ port_number = data_manager.config['port']['port_number']
 
 @app.route('/')
 def main_page():
-    print("We are in main")
     return render_template('map.html')
 
 @app.route('/get_articles', methods=['POST'])
@@ -30,7 +29,8 @@ def android():
 
 @app.route('/android_download', methods=['GET'])
 def download_apk():
-    return "ok"
+    path = "static/android_version/news-about-europe-for-android.apk"
+    return send_file(path, as_attachment=True)
 
 @app.errorhandler(404)
 def page_not_found(e):
