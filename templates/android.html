@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Android version{% endblock %}</h1>
+{% endblock %}
+
+{% block  menus_content %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for( 'main_page' ) }} ">Map</a></li>
+    <li class="nav-item active"><a class="nav-link" href=" {{ url_for( 'android' ) }} ">Android version</a></li>
+{% endblock %}
+
+{% block content %}
+    <div id ="info">
+        <p>Hi</p>
+        <p>info</p>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'download_apk' ) }}';">Download</button>
+    </div>
+{% endblock %}
