@@ -29,8 +29,13 @@ def android():
 
 @app.route('/android_download', methods=['GET'])
 def download_apk():
-    path = "static/android_version/news-about-europe-for-android.apk"
-    return send_file(path, as_attachment=True)
+    try:
+        path = "static/android_version/news-about-europe-for-android.apk"
+        return send_file(path, as_attachment=True)
+    except Exception as e:
+        print(str(e))
+    return render_template('android.html', error=True)
+
 
 @app.errorhandler(404)
 def page_not_found(e):

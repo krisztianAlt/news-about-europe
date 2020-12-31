@@ -58,6 +58,10 @@ body {
     color: #FF0 !important;
 }
 
+.warning {
+    color: red;
+}
+
 #selector-div {
     max-width: 90%;
     margin: auto;

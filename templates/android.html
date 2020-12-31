@@ -14,5 +14,8 @@
         <p>Hi</p>
         <p>info</p>
         <button type="button" class="btn btn-primary" target="_blank" onclick="window.location.href='{{ url_for( 'download_apk' ) }}';">Download</button>
+        {% if error %}
+            <p class="warning"> Something went wrong, please, try later! </p>
+        {% endif %}
     </div>
 {% endblock %}
