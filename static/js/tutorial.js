@@ -204,32 +204,28 @@ app.tutorial = {
             for (index = 0; index < newsAgencyRadios.length; index++) {
                 newsAgencyRadios[index].removeEventListener('click', app.tutorial.clickOnNewsAgencyRadioButtons);
             }
-
+            
             app.tutorial.fourthInstruction();
         };
     },
 
     fourthInstruction: function() {
-        var scrollingTextContainer = document.getElementById('text-container-div');
         if (mobileDevice){
             app.tutorial.openMobileTutorialModalWithNewInstruction("Great! If you touch the scrolling text, it will stop, " +
                                                                 "so you will be able to read the headlines calmly. Let's go there!");
-            scrollingTextContainer.addEventListener('touchstart', app.tutorial.textStopOnScroller, false);
         } else {
             originalTooltipInnerHTML = tooltipSpan.innerHTML = "Great!<br/>If you put the mouse pointer over the scrolling text, it will stop,<br/>" +
                                                                 "so you will be able to read the headlines calmly. <br/> Let's go there!";
-            scrollingTextContainer.addEventListener('mouseenter', app.tutorial.textStopOnScroller, false);
         }
+        app.scrollerHandling.scrollerInFocusInTutorial();
     },
 
     textStopOnScroller: function(){
-        var scrollingTextContainer = document.getElementById('text-container-div');
+        app.scrollerHandling.scrollerNotInFocusInTutorial();
         if (mobileDevice) {
-            scrollingTextContainer.removeEventListener('touchstart', app.tutorial.textStopOnScroller);
             app.tutorial.openMobileTutorialModalWithNewInstruction('OK. The tutorial ends. Just click again the Tutorial mode toggle, ' +
                                                                 'and the countries on the map and above the menus will be clickable again.');
         } else {
-            scrollingTextContainer.removeEventListener('mouseenter', app.tutorial.textStopOnScroller);
             originalTooltipInnerHTML = tooltipSpan.innerHTML = 'OK. The tutorial ends.<br/>Just click again the Tutorial mode toggle,<br/>' +
                                                                 'and the countries on the map and above the menus will be clickable again.<br/>' +
                                                                 'Thank you for your attention!';
@@ -284,7 +280,6 @@ app.tutorial = {
         app.tutorial.moveLeftTutorialSwitch();
         app.mapHandling.addEventListenersToCountries();
         app.tutorial.activateTutorialSwitch();
-        app.menuHandling.setFirstMenuToActive();
     },
 
     openMobileTutorialModalWithNewInstruction: function(newText) {

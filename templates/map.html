@@ -3,13 +3,18 @@
 {% block head %}
     <script src="{{url_for('static', filename='js/map_handler.js')}}" defer="defer"></script>
     <script src="{{url_for('static', filename='js/scroller.js')}}" defer></script>
-    <script src="{{url_for('static', filename='js/menu_handler.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/tutorial.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/radio_button_handler.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/main.js')}}" defer></script>
 {% endblock %}
 
 {% block header %}
     <h1>{% block title %}Map{% endblock %}</h1>
+{% endblock %}
+
+{% block  menus_content %}
+    <li class="nav-item active"><a class="nav-link" href="{{ url_for( 'main_page' ) }} ">Map</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for( 'android' ) }} ">Android version</a></li>
 {% endblock %}
 
 {% block content %}
@@ -52,7 +57,7 @@
 
     <!--Map from Wikimedia-->
     <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 svg-container">
-        {% block svg_map_content %}        
+        {% block svg_map_content %}
             <svg
                 class="svg-content"
                 viewBox = "0 0 593 606"
