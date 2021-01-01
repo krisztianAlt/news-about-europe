@@ -10,20 +10,81 @@
 {% endblock %}
 
 {% block content %}
-    <div id ="info">
-        <p>In the mobile version of News About Europe, you can select from not four, but six news agencies. Countries are represented by their flags instead of map.</p>
-        <p>You can reorder the list of articles by title, author and date, in ascending and descending order too. You can mark articles as your favorite.</p>
-        <p>Favorite articles are saved, so you can list them later.</p>
-        <p>Mobile version works with your own API key, so you should register on <a target="_blank" href="https://newsapi.org/pricing">News API</a> for the key. Just select the "Developer" option, it's totally free. You will get the key in e-mail. You should type it into the app's key handler screen.</p>
-        <br/>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-6 image-holder">
+                            <img src="static/android_version/screenshots/county_selection_screen.png" alt="Country selection screen">
+                        </div>
+                        <div class="col-6 text-holder">
+                            <div class="card-body">
+                                <p class="card-text">In the mobile version, you can select from not four, but six news agencies. Countries are represented by their flags instead of map.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-6 image-holder">
+                            <img src="static/android_version/screenshots/listing_articles_screen.png" alt="Listing articles screen">
+                        </div>
+                        <div class="col-6 text-holder">
+                            <div class="card-body">
+                                <p class="card-text">You can reorder the list of articles by title, author and date, in ascending and descending order too. You can mark articles as your favorite.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-6 image-holder">
+                            <img src="static/android_version/screenshots/favorite_articles_screen.png" alt="Favorite articles screen">
+                        </div>
+                        <div class="col-6 text-holder">
+                            <div class="card-body">
+                                <p class="card-text">Favorite articles are saved, so you can list them later.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-6 image-holder">
+                            <img src="static/android_version/screenshots/add_api_key_screen.png" alt="API key screen">
+                        </div>
+                        <div class="col-6 text-holder">
+                            <div class="card-body">
+                                <p class="card-text">Mobile version works with your own API key, so you should register on <a target="_blank" href="https://newsapi.org/pricing">News API</a> for the key. Select the "Developer" option, it's free. You will get the key in e-mail.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="install-info">
         <p>You have two options to install the app.</p>
         <p>1. Visit News About Europe site in the browser of your mobile device, and touch the Download button below. Save the APK file into your device's Downloads folder. Then you should start the Files app, touch <span class="italic-text">Downloads</span>, then select and install <span class="italic-text">news-about-europe-for-android.apk</span>.</p>
-        <button type="button" class="btn btn-primary" target="_blank" onclick="window.location.href='{{ url_for( 'download_apk' ) }}';">Download</button>
-        {% if error %}
-            <p class="warning"> Something went wrong, please, try later! </p>
-        {% endif %}
+        <div class="download-button-container">
+            <button type="button" class="btn btn-primary" target="_blank" onclick="window.location.href='{{ url_for( 'download_apk' ) }}';">Download</button>
+            {% if error %}
+                <p class="warning"> Something went wrong, please, try later! </p>
+            {% endif %}
+        </div>
         <br/>
+        <p>2. Clone the project's <a target="_blank" href="https://github.com/krisztianAlt/news-about-europe-for-android">GitHub repo</a>, open the project in Android Studio, and run the app on your device or an emulator.</p>
         <br/>
-        <p>2. Clone the project's <a target="_blank" href="https://github.com/krisztianAlt/news-about-europe-for-android">GitHub repo</a>, open the project in Android Studio, and run the app on your device or an emulator, as you wish.</p>
-    </div>
+    <div>
 {% endblock %}
