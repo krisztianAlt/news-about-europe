@@ -10,7 +10,7 @@ As a user, if you want to, you can activate tutorial mode: you can get informati
 As a user, you can select "Mobile version" menu at the navigation bar. There you can download a package - you can run it with an emulator in Android Studio, or you can deploy it from Android Studio to device, for example smart phone. In this version, you can select from not only 4, but 6 news agencies, and you can save your favourite article datas for later occasions.
 
 
-**About the programming**
+**About programming**
 
 With this project I have wanted to practice geting datas from a REST API: sending requests, treat responses at Python back-end. The program sends a request with the selected country and news agency to News API (https://newsapi.org/). News API sends datas of 20 articles in JSON format. The program sorts the articles by publishing date, delete recurring articles, then lists the article datas in a modal at front-end.
 
