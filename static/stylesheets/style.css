@@ -6,6 +6,7 @@
 body {
     font-family: 'Ledger';
     margin: 0;
+    background-color: #dee7fc;
 }
 
 * {
@@ -52,6 +53,18 @@ body {
 
 .navbar-dark .navbar-toggler {
     color: rgba(255,255,1,.7);
+}
+
+.btn-primary {
+    color: #FF0 !important;
+}
+
+.warning {
+    color: red;
+}
+
+.italic-text {
+    font-style: italic;
 }
 
 #selector-div {
@@ -103,7 +116,10 @@ path:hover {
 }
 
 #footer {
-    
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     margin: 0 auto;
     background-color: #007bff;
 }
@@ -260,4 +276,45 @@ path:hover {
     bottom: 2px;
     background-color: white;
     border-radius: 50%;
+  }
+
+  .container-fluid {
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    height: 100%;
+    background-color: #c7ffd6;
+  }
+
+  .card .row {
+    height: 100%;
+  }
+
+  .image-holder {
+    display: flex;
+    justify-content: center;
+  }
+
+  .text-holder {
+    margin:auto;
+    vertical-align: middle !important;
+  }
+
+  .image-holder img {
+    margin: auto;
+    padding: 5px;
+  }
+
+  #install-info {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-bottom: 15px;
+  }
+
+  .download-button-container {
+    text-align: center;
   }

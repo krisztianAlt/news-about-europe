@@ -1,6 +1,6 @@
 import data_manager
 import os
-from flask import Flask, request, render_template, url_for, jsonify
+from flask import Flask, request, render_template, url_for, jsonify, send_file, send_from_directory
 
 app = Flask(__name__)
 app.secret_key = data_manager.config['flask_secret_key']['SECRET_KEY']
@@ -22,6 +22,20 @@ def get_top_headlines_datas():
     selected_news_agency = request.get_json()['selected_news_agency']
     succeeded, top_headlines = data_manager.get_top_headlines(selected_news_agency)
     return jsonify(succeeded=succeeded, top_headlines=top_headlines)
+
+@app.route('/android', methods=['GET'])
+def android():
+    return render_template('android.html')
+
+@app.route('/android_download', methods=['GET'])
+def download_apk():
+    try:
+        path = "static/android_version/news-about-europe-for-android.apk"
+        return send_file(path, as_attachment=True)
+    except Exception as e:
+        print(str(e))
+    return render_template('android.html', error=True)
+
 
 @app.errorhandler(404)
 def page_not_found(e):
