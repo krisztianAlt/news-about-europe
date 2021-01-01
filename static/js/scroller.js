@@ -6,6 +6,7 @@ var headlinesInOneString = '';
 var actualScrollingUnitWithTimer;
 var newsAgencyChanged;
 var mobileDevice;
+var tutorialModeIsActive = false;
 
 app.scrollerHandling = {
 
@@ -89,6 +90,9 @@ app.scrollerHandling = {
         if (mobileDevice){
             newTextParagraph.addEventListener('touchstart', e => {
                 step = 0;
+                if (tutorialModeIsActive){
+                    app.tutorial.textStopOnScroller();
+                }
             });
     
             newTextParagraph.addEventListener('touchend', e => {
@@ -97,6 +101,9 @@ app.scrollerHandling = {
         } else {
             newTextParagraph.addEventListener('mouseenter', e => {
                 step = 0;
+                if (tutorialModeIsActive){
+                    app.tutorial.textStopOnScroller();
+                }
             });
     
             newTextParagraph.addEventListener('mouseleave', e => {
@@ -164,6 +171,13 @@ app.scrollerHandling = {
                 newsAgencyName = 'Reuters';
         };
         return newsAgencyName;
-    }
+    },
 
+    scrollerInFocusInTutorial: function (){
+        tutorialModeIsActive = true;
+    },
+
+    scrollerNotInFocusInTutorial: function(){
+        tutorialModeIsActive = false;
+    }
 }
