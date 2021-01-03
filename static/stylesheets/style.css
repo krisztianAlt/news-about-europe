@@ -19,7 +19,7 @@ body {
     background-color: #dee7fc;
 }
 
-.content-above-footer {
+#content-above-footer {
     flex: 1 0 auto;
 }
 
