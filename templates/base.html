@@ -14,9 +14,11 @@
             <script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js') }}" ></script>
             <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
             
-            <!--CSS file-->
+            <!--Own CSS file-->
             <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 
+            <!--Font Awesome CSS file for icons-->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         {% block head %}{% endblock %}
     </head>
     <body>
@@ -46,7 +48,19 @@
             {% block footer_scroller_content %}{% endblock %}
 
             <!--Links-->
-            <p id="links">Powered by <a target="_blank" href="https://newsapi.org">News API</a>. Author of map: Maix (from <a target="_blank" href="https://commons.wikimedia.org/wiki/File:Blank_map_of_Europe_cropped.svg">Wikimedia</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA 3.0</a>).</p>
+            <div id="links" class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <i class="fa fa-github" aria-hidden="true"></i> The project on the GitHub: <a target="_blank" href="https://github.com/krisztianAlt/news-about-europe">repo</a>.
+                    </div>
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <i class="fa fa-handshake-o" aria-hidden="true"></i> Powered by <a target="_blank" href="https://newsapi.org">News API</a>.
+                    </div>
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <i class="fa fa-map-o" aria-hidden="true"></i> Author of map: Maix (from <a target="_blank" href="https://commons.wikimedia.org/wiki/File:Blank_map_of_Europe_cropped.svg">Wikimedia</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA 3.0</a>).
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
