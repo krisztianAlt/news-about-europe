@@ -3,14 +3,24 @@
     src: url local('fonts/Ledger-Regular.ttf') format('truetype');
 }
 
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
 body {
+    display: flex;
+    flex-direction: column;
     font-family: 'Ledger';
     margin: 0;
     background-color: #dee7fc;
 }
 
-* {
-    box-sizing: border-box;
+.content-above-footer {
+    flex: 1 0 auto;
 }
 
 .navbar {
@@ -116,11 +126,7 @@ path:hover {
 }
 
 #footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    flex-shrink: 0;
     background-color: #007bff;
 }
 
@@ -225,6 +231,7 @@ path:hover {
     cursor: not-allowed;
     opacity: 0.5;
     text-decoration: none;
+    pointer-events: none;
 }
 
 #switch-container {
@@ -312,6 +319,7 @@ path:hover {
   #install-info-col {
     margin-right: auto;
     margin-left: auto;
+    margin-bottom: 15px;
   }
 
   #install-info-col .card {
