@@ -176,12 +176,12 @@ app.tutorial = {
             newsAgencyRadios[index].addEventListener('click', app.tutorial.clickOnNewsAgencyRadioButtons, false);
         }
         if (mobileDevice) {
-            app.tutorial.openMobileTutorialModalWithNewInstruction("Okay. Below the map, there is a horizontal yellow bar. " + 
+            app.tutorial.openMobileTutorialModalWithNewInstruction("Okay. Below the map, there is a horizontal orange-coloured bar. " + 
                                     "There you can read a scrolling text: the top headlines by the selected news agency. " +
                                     "Please, click another agency above the map.");
         } else {
             originalTooltipInnerHTML = tooltipSpan.innerHTML = "Okay. <br />" +
-                                    "At the lower section of this page, there is a horizontal yellow bar. <br />" + 
+                                    "At the lower section of this page, there is a horizontal orange-coloured bar. <br />" + 
                                     "There you can read a scrolling text: the top headlines by the selected news agency. <br />" +
                                     "Please, click another agency above the map.";
         }
