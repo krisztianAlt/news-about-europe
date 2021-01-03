@@ -99,8 +99,8 @@ img:not(.png) {
 }	
 
 path {
-    fill: #20c948 !important;
-    stroke: #FF0 !important;
+    fill: #42b35c !important;
+    stroke: white !important;
 }
 
 path:hover {
@@ -132,6 +132,7 @@ path:hover {
 #links {
     text-align: center;
     color: #FF0;
+    margin: 2px 0 4px 0;
 }
 
 #links a {
@@ -177,14 +178,14 @@ path:hover {
 .scroll-left {
     overflow: hidden;
     position: relative;
-    background: #FF0;
+    background: orange;
     color:#007bff;
-    border-left: 2px solid orange;
+    border-left: 2px solid #a86d32;
 }
 
 .scroller-element {
     float:left;
-    background: #FF0;
+    background: orange;
     height: 30px;
 }
 
@@ -307,14 +308,25 @@ path:hover {
     padding: 5px;
   }
 
-  #install-info {
-    padding-right: 15px;
-    padding-left: 15px;
+
+  #install-info-col {
     margin-right: auto;
     margin-left: auto;
-    padding-bottom: 15px;
   }
+
+  #install-info-col .card {
+    background-color: #d1e3b1;
+    padding: 15px;
+  }
+
+  #install-info-col .card p:first-of-type{
+    text-align: center;
+}
 
   .download-button-container {
     text-align: center;
+  }
+
+  #sec-par {
+      padding-top: 30px;
   }
