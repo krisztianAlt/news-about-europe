@@ -7,7 +7,7 @@ On the website, which is attained by this program, as a user you can select a ne
 
 As a user, if you want to, you can activate tutorial mode: you can get informations about the usage of the site. In tutorial mode, if you use an environment with mouse (desktop PC, laptop), infos appear in a tooltip, which follows your mouse pointer; if you visit the site on a device, which has touchscreen, you get the instructions in dialog boxes.
 
-As a user, you can select "Mobile version" menu at the navigation bar. There you can download a package - you can run it with an emulator in Android Studio, or you can deploy it from Android Studio to device, for example smart phone. In this version, you can select from not only 4, but 6 news agencies, and you can save your favourite article datas for later occasions.
+As a user, you can select "Android version" menu at the navigation bar. There you can download the APK file - you can install it on your mobile device. Another option to try the app: you can click the link of Android version's GitHub repo - just clone that repo, and you can deploy the app from Android Studio to your device, or you can run it in an emulator. In the Android version, you can select from not only 4, but 6 news agencies, you can reorder the listed articles by title, author and date, in ascending and descending too, and you can save your favourite article datas for later occasions.
 
 
 **About programming**
